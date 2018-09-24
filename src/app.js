@@ -1,37 +1,32 @@
-import Taro, { Component } from '@tarojs/taro'
-import Index from './pages/index'
+import Taro, { Component } from '@tarojs/taro';
+import Index from './pages/index';
 
-import './app.css'
+import './app.css';
 wx.cloud.init({
-  traceUser: true
-})
+  traceUser: true,
+});
 class App extends Component {
-
   config = {
-    pages: [
-      'pages/index/index'
-    ],
+    pages: ['pages/index/index', 'pages/addJoke/index'],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
       navigationBarTitleText: 'WeChat',
-      navigationBarTextStyle: 'black'
-    }
-  }
+      navigationBarTextStyle: 'black',
+    },
+  };
 
-  componentDidMount () {}
+  componentDidMount() {}
 
-  componentDidShow () {}
+  componentDidShow() {}
 
-  componentDidHide () {}
+  componentDidHide() {}
 
-  componentCatchError () {}
+  componentCatchError() {}
 
-  render () {
-    return (
-      <Index />
-    )
+  render() {
+    return <Index />;
   }
 }
 
-Taro.render(<App />, document.getElementById('app'))
+Taro.render(<App />, document.getElementById('app'));

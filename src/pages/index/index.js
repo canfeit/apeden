@@ -1,23 +1,23 @@
-import Taro, { Component } from "@tarojs/taro";
-import { View, Text } from "@tarojs/components";
-import { AtList, AtListItem, AtTabs, AtTabsPane, AtTabBar } from "taro-ui";
-import "./index.css";
+import Taro, { Component } from '@tarojs/taro';
+import { View, Text } from '@tarojs/components';
+import { AtList, AtListItem, AtTabs, AtTabsPane, AtTabBar } from 'taro-ui';
+import './index.css';
 const db = wx.cloud.database();
 
-export default class Index extends Component {
+export default class extends Component {
   config = {
-    navigationBarTitleText: "首页"
+    navigationBarTitleText: '首页',
   };
   constructor(props) {
     super(props);
   }
   componentWillMount() {
-    db.collection("jokes").get({
+    db.collection('jokes').get({
       success: res => {
         // 输出 [{ "title": "The Catcher in the Rye", ... }]
         console.log(res);
         this.setState({ jokes: res.data });
-      }
+      },
     });
   }
 
@@ -30,7 +30,16 @@ export default class Index extends Component {
   componentDidHide() {}
   handleClick(index) {
     this.setState({
-      current: index
+      current: index,
+    });
+  }
+  handleClickTabBar(index) {
+    index === 2 &&
+      Taro.navigateTo({
+        url: '/pages/addJoke/index',
+      });
+    this.setState({
+      currentTabBar: index,
     });
   }
   render() {
@@ -38,42 +47,37 @@ export default class Index extends Component {
       <View className="index">
         <AtTabs
           current={this.state.current}
-          tabList={[{ title: "最新" }, { title: "劲爆" }, { title: "段子手" }]}
+          tabList={[{ title: '最新' }, { title: '劲爆' }, { title: '段子手' }]}
           onClick={this.handleClick}
         >
           <AtTabsPane current={this.state.current} index={0}>
-            <View style="font-size:18px;text-align:center;height:100px;">
-              标签页一的内容
-            </View>
+            <View>标签页一的内容</View>
           </AtTabsPane>
           <AtTabsPane current={this.state.current} index={1}>
-            <View style="font-size:18px;text-align:center;height:100px;">
-            <AtList>
-              {this.state.jokes &&
-                this.state.jokes.map(joke => (
-                    <AtListItem
-                      title={joke.createdAt+''}
-                      onClick={this.handleClick}
-                    />
-                ))}
-                </AtList>
+            <View>
+              <AtList>
+                {this.state.jokes &&
+                  this.state.jokes.map(joke => (
+                    <AtListItem title={joke.title} onClick={this.handleClick} />
+                  ))}
+              </AtList>
             </View>
           </AtTabsPane>
           <AtTabsPane current={this.state.current} index={2}>
-            <View style="font-size:18px;text-align:center;height:100px;">
-              标签页三的内容
-            </View>
+            <View>标签页三的内容</View>
           </AtTabsPane>
         </AtTabs>
         <AtTabBar
           fixed
           tabList={[
-            { iconType: "bullet-list" },
-            { iconType: "image" },
-            { iconType: "add" },
-            { iconType: "heart" },
-            { iconType: "user" }
+            { iconType: 'bullet-list' },
+            { iconType: 'image' },
+            { iconType: 'add' },
+            { iconType: 'heart' },
+            { iconType: 'user' },
           ]}
+          onClick={this.handleClickTabBar}
+          current={this.state.currentTabBar}
         />
       </View>
     );
