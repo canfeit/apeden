@@ -2,7 +2,9 @@ import Taro, { Component } from '@tarojs/taro'
 import Index from './pages/index'
 
 import './app.css'
-
+wx.cloud.init({
+  traceUser: true
+})
 class App extends Component {
 
   config = {

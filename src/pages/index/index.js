@@ -2,15 +2,22 @@ import Taro, { Component } from "@tarojs/taro";
 import { View, Text } from "@tarojs/components";
 import { AtList, AtListItem, AtTabs, AtTabsPane, AtTabBar } from "taro-ui";
 import "./index.css";
+const db = wx.cloud.database();
 
 export default class Index extends Component {
   config = {
     navigationBarTitleText: "首页"
   };
-
+  constructor(props) {
+    super(props);
+  }
   componentWillMount() {
-    this.setState({
-      current: 0
+    db.collection("jokes").get({
+      success: res => {
+        // 输出 [{ "title": "The Catcher in the Rye", ... }]
+        console.log(res);
+        this.setState({ jokes: res.data });
+      }
     });
   }
 
@@ -41,7 +48,15 @@ export default class Index extends Component {
           </AtTabsPane>
           <AtTabsPane current={this.state.current} index={1}>
             <View style="font-size:18px;text-align:center;height:100px;">
-              标签页二的内容
+            <AtList>
+              {this.state.jokes &&
+                this.state.jokes.map(joke => (
+                    <AtListItem
+                      title={joke.createdAt+''}
+                      onClick={this.handleClick}
+                    />
+                ))}
+                </AtList>
             </View>
           </AtTabsPane>
           <AtTabsPane current={this.state.current} index={2}>
@@ -57,7 +72,7 @@ export default class Index extends Component {
             { iconType: "image" },
             { iconType: "add" },
             { iconType: "heart" },
-            { iconType: "user", dot: true }
+            { iconType: "user" }
           ]}
         />
       </View>
