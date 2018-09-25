@@ -4,8 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
@@ -41,7 +39,7 @@ var Index = function (_BaseComponent) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Index.__proto__ || Object.getPrototypeOf(Index)).call.apply(_ref, [this].concat(args))), _this), _this.$usedState = [], _this.$$refs = [], _temp), _possibleConstructorReturn(_this, _ret);
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Index.__proto__ || Object.getPrototypeOf(Index)).call.apply(_ref, [this].concat(args))), _this), _this.$usedState = ["content"], _this.$$refs = [], _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(Index, [{
@@ -65,37 +63,29 @@ var Index = function (_BaseComponent) {
     key: "componentDidHide",
     value: function componentDidHide() {}
   }, {
-    key: "onTitle",
-    value: function onTitle(value) {
-      this.setState({ newJoke: _extends({}, this.state.newJoke, { title: value }) });
-    }
-  }, {
     key: "onContent",
     value: function onContent(_ref2) {
+      var _this2 = this;
+
       var value = _ref2.target.value;
 
-      this.setState({ newJoke: _extends({}, this.state.newJoke, { content: value }) });
-    }
-  }, {
-    key: "onContentFocus",
-    value: function onContentFocus(e) {
-      this.contentE = e;
+      this.changeTimer && clearTimeout(this.changeTimer);
+      this.changeTimer = setTimeout(function () {
+        _this2.setState({
+          content: value
+        });
+      }, 100);
     }
   }, {
     key: "onSubmit",
     value: function onSubmit() {
-      var newJoke = this.state.newJoke;
-
-      console.log(this.contentE.target.value);
-      if (newJoke.title && newJoke.content) {
-        _db.jokes.add({
-          data: newJoke
-        }).then(function () {
-          _index2.default.navigateTo({
-            url: '/pages/index/index'
-          });
+      _db.jokes.add({
+        data: { content: this.state.content }
+      }).then(function () {
+        _index2.default.redirectTo({
+          url: '/pages/index/index'
         });
-      }
+      });
     }
   }, {
     key: "_createData",
@@ -111,7 +101,7 @@ var Index = function (_BaseComponent) {
 }(_index.Component);
 
 Index.properties = {};
-Index.$$events = ["onTitle", "onContent", "onContentFocus", "onSubmit"];
+Index.$$events = ["onContent", "onSubmit"];
 exports.default = Index;
 
 Component(require('../../npm/@tarojs/taro-weapp/index.js').default.createComponent(Index, true));

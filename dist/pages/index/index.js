@@ -78,8 +78,8 @@ var _TaroComponentClass = function (_BaseComponent) {
     value: function handleClickTabBar(index) {
       switch (index) {
         case 2:
-          _index2.default.navigateTo({
-            url: '/pages/addJoke/index'
+          _index2.default.redirectTo({
+            url: "/pages/addJoke/index"
           });
           break;
       }
@@ -92,8 +92,8 @@ var _TaroComponentClass = function (_BaseComponent) {
     value: function _createData() {
       this.__state = arguments[0] || this.state || {};
       this.__props = arguments[1] || this.props || {};
-      var anonymousState__temp = [{ title: '最新' }, { title: '劲爆' }, { title: '段子手' }];
-      var anonymousState__temp2 = [{ iconType: 'bullet-list' }, { iconType: 'image' }, { iconType: 'add' }, { iconType: 'heart' }, { iconType: 'user' }];
+      var anonymousState__temp = [{ title: "最新" }, { title: "劲爆" }, { title: "段子手" }];
+      var anonymousState__temp2 = [{ iconType: "bullet-list" }, { iconType: "image" }, { iconType: "add" }, { iconType: "heart" }, { iconType: "user" }];
       Object.assign(this.__state, {
         anonymousState__temp: anonymousState__temp,
         anonymousState__temp2: anonymousState__temp2

@@ -1,11 +1,8 @@
 <block>
     <view>
-        <at-input placeholder="段子标题" __triggerObserer="{{ _triggerObserer }}"
-        bindonchange="onTitle" __fn_onChange="{{true}}" data-e-onTitle-so="this"></at-input>
-        <at-textarea maxlength="200" __triggerObserer="{{ _triggerObserer }}"
-        placeholder="段子内容..." bindonchange="onContent" bindonfocus="onContentFocus"
-        __fn_onChange="{{true}}" data-e-onContent-so="this" __fn_onFocus="{{true}}"
-        data-e-onContentFocus-so="this"></at-textarea>
+        <at-textarea value="{{content}}" __triggerObserer="{{ _triggerObserer }}"
+        maxlength="200" placeholder="段子内容..." bindonchange="onContent" __fn_onChange="{{true}}"
+        data-e-onContent-so="this"></at-textarea>
         <at-button bindonclick="onSubmit" __triggerObserer="{{ _triggerObserer }}"
         __fn_onClick="{{true}}">提交</at-button>
     </view>

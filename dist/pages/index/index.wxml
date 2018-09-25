@@ -1,16 +1,16 @@
 <block>
     <view>
-        <at-tabs current="{{current}}" __triggerObserer="{{ _triggerObserer }}"
-        tabList="{{anonymousState__temp}}" bindonclick="handleClick" __fn_onClick="{{true}}">
-            <at-tabs-pane __triggerObserer="{{ _triggerObserer }}">标签页一的内容</at-tabs-pane>
+        <at-tabs tabList="{{anonymousState__temp}}" __triggerObserer="{{ _triggerObserer }}"
+        current="{{current}}" bindonclick="handleClick" __fn_onClick="{{true}}">
             <at-tabs-pane __triggerObserer="{{ _triggerObserer }}">
                 <at-list __triggerObserer="{{ _triggerObserer }}">
                     <block wx:if="{{jokes}}">
-                        <at-list-item title="{{joke.title}}" __triggerObserer="{{ _triggerObserer }}"
-                        bindonclick="handleClick" wx:for="{{jokes}}" wx:for-item="joke" __fn_onClick="{{true}}"></at-list-item>
+                        <at-list-item title="{{joke.content}}" __triggerObserer="{{ _triggerObserer }}"
+                        wx:for="{{jokes}}" wx:for-item="joke"></at-list-item>
                     </block>
                 </at-list>
             </at-tabs-pane>
+            <at-tabs-pane __triggerObserer="{{ _triggerObserer }}">2</at-tabs-pane>
             <at-tabs-pane __triggerObserer="{{ _triggerObserer }}">3</at-tabs-pane>
         </at-tabs>
         <at-tab-bar fixed="{{true}}" __triggerObserer="{{ _triggerObserer }}"
