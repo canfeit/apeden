@@ -1,0 +1,39 @@
+<block>
+    <view class="{{rootClass}}" bindtap="handleClick">
+        <block wx:if="{{thumb}}">
+            <view class="at-list__item-thumb item-thumb">
+                <image class="item-thumb-info" mode="scaleToFill" src="{{thumb}}" />
+            </view>
+        </block>
+        <view class="at-list__item-content item-content">
+            <view class="item-content__info">
+                <view class="item-content__info-title">{{title}}</view>
+                <block wx:if="{{note}}">
+                    <view class="item-content__info-note">{{note}}</view>
+                </block>
+            </view>
+        </view>
+        <view class="at-list__item-extra item-extra">
+            <block wx:if="{{extraText}}">
+                <view class="item-extra__info">{{extraText}}</view>
+            </block>
+            <block wx:if="{{extraThumb && !extraText}}">
+                <view class="item-extra__image">
+                    <image class="item-extra__image-info" mode="aspectFit" src="{{extraThumb}}"
+                    />
+                </view>
+            </block>
+            <block wx:if="{{isSwitch && !extraThumb && !extraText}}">
+                <view class="item-extra__switch" catchtap="handleSwitchClick">
+                    <switch color="#6190E8" checked="{{switchIsCheck}}" bindchange="handleSwitchChange"></switch>
+                </view>
+            </block>
+            <block wx:if="{{arrow}}">
+                <view class="item-extra__icon">
+                    <at-icon value="{{anonymousState__temp}}" __triggerObserer="{{ _triggerObserer }}"
+                    color="#c7c7cc"></at-icon>
+                </view>
+            </block>
+        </view>
+    </view>
+</block>

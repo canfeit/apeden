@@ -1,0 +1,14 @@
+<block>
+    <view class="index">
+        <at-form __triggerObserer="{{ _triggerObserer }}">
+            <at-input name="value1" __triggerObserer="{{ _triggerObserer }}" title="标题"
+            type="text" placeholder="单行文本" bindonblur="onTitle" __fn_onBlur="{{true}}"
+            data-e-onTitle-so="this"></at-input>
+            <at-textarea value="{{value}}" __triggerObserer="{{ _triggerObserer }}"
+            maxlength="200" placeholder="段子内容..." bindonblur="onContent" __fn_onBlur="{{true}}"
+            data-e-onContent-so="this"></at-textarea>
+            <at-button type="primary" __triggerObserer="{{ _triggerObserer }}"
+            size="normal" bindonclick="onSubmit" __fn_onClick="{{true}}">提交</at-button>
+        </at-form>
+    </view>
+</block>

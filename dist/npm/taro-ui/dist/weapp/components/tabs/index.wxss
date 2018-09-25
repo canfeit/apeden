@@ -1,0 +1,340 @@
+
+@charset "UTF-8";
+/**
+ * Mixins
+ */
+/* library */
+/**
+ * 元素居中定位
+ */
+/**
+ * @example scss
+ *
+ * .element {
+ *   @include clearfix;
+ * }
+ *
+ * // CSS Output
+ * .element::after {
+ *   clear: both;
+ *   content: '';
+ *   display: block;
+ * }
+ */
+/**
+ * Default Theme
+ */
+/**
+ * Mixes a color with white. It's different from lighten()
+ *
+ * @param {color} $color
+ * @param {number (percentage)} $percent [The amout of white to be mixed in]
+ * @return {color}
+ *
+ * @example
+ *   .element {
+ *     background-color: tint(#6ecaa6 , 40%);
+ *   }
+ *
+ *   // CSS Output
+ *   .element {
+ *     background-color: #a8dfc9;
+ *   }
+ */
+/* The Color of O2Team Brand */
+/* Color */
+/* Color Palette */
+/* Text Color */
+/* Link */
+/* 背景色 */
+/* 边框颜色 */
+/* 图标颜色 */
+/* Border Radius */
+/* 透明度 */
+/* Font */
+/* Line Height */
+/* 水平间距 */
+/* 垂直间距 */
+/* 图标尺寸 */
+/* z-index */
+/* timing function */
+/**
+ * CSS cubic-bezier timing functions
+ * http://bourbon.io/docs/#timing-functions
+ */
+/**
+ * 通用的遮罩
+ */
+/**
+ * Mixes a color with black. It's different from darken()
+ *
+ * @param {color} $color
+ * @param {number (percentage)} $percent [The amount of black to be mixed in]
+ * @return {color}
+ *
+ * @example
+ *   .element {
+ *     background-color: shade(#ffbb52, 60%);
+ *   }
+ *
+ *   // CSS Output
+ *   .element {
+ *     background-color: #664a20;
+ *   }
+ */
+/**
+ * Mixes a color with white. It's different from lighten()
+ *
+ * @param {color} $color
+ * @param {number (percentage)} $percent [The amout of white to be mixed in]
+ * @return {color}
+ *
+ * @example
+ *   .element {
+ *     background-color: tint(#6ecaa6 , 40%);
+ *   }
+ *
+ *   // CSS Output
+ *   .element {
+ *     background-color: #a8dfc9;
+ *   }
+ */
+/* Flex Item */
+/**
+ * Default Theme
+ */
+/**
+ * Mixes a color with white. It's different from lighten()
+ *
+ * @param {color} $color
+ * @param {number (percentage)} $percent [The amout of white to be mixed in]
+ * @return {color}
+ *
+ * @example
+ *   .element {
+ *     background-color: tint(#6ecaa6 , 40%);
+ *   }
+ *
+ *   // CSS Output
+ *   .element {
+ *     background-color: #a8dfc9;
+ *   }
+ */
+/* The Color of O2Team Brand */
+/* Color */
+/* Color Palette */
+/* Text Color */
+/* Link */
+/* 背景色 */
+/* 边框颜色 */
+/* 图标颜色 */
+/* Border Radius */
+/* 透明度 */
+/* Font */
+/* Line Height */
+/* 水平间距 */
+/* 垂直间距 */
+/* 图标尺寸 */
+/* z-index */
+/* timing function */
+/**
+ * CSS cubic-bezier timing functions
+ * http://bourbon.io/docs/#timing-functions
+ */
+/**
+ * Default Theme
+ */
+/**
+ * Mixes a color with white. It's different from lighten()
+ *
+ * @param {color} $color
+ * @param {number (percentage)} $percent [The amout of white to be mixed in]
+ * @return {color}
+ *
+ * @example
+ *   .element {
+ *     background-color: tint(#6ecaa6 , 40%);
+ *   }
+ *
+ *   // CSS Output
+ *   .element {
+ *     background-color: #a8dfc9;
+ *   }
+ */
+/* The Color of O2Team Brand */
+/* Color */
+/* Color Palette */
+/* Text Color */
+/* Link */
+/* 背景色 */
+/* 边框颜色 */
+/* 图标颜色 */
+/* Border Radius */
+/* 透明度 */
+/* Font */
+/* Line Height */
+/* 水平间距 */
+/* 垂直间距 */
+/* 图标尺寸 */
+/* z-index */
+/* timing function */
+/**
+ * CSS cubic-bezier timing functions
+ * http://bourbon.io/docs/#timing-functions
+ */
+/**
+ * 点击态
+ */
+/**
+ * 禁止态
+ */
+/**
+ * Default Theme
+ */
+/**
+ * Mixes a color with white. It's different from lighten()
+ *
+ * @param {color} $color
+ * @param {number (percentage)} $percent [The amout of white to be mixed in]
+ * @return {color}
+ *
+ * @example
+ *   .element {
+ *     background-color: tint(#6ecaa6 , 40%);
+ *   }
+ *
+ *   // CSS Output
+ *   .element {
+ *     background-color: #a8dfc9;
+ *   }
+ */
+/* The Color of O2Team Brand */
+/* Color */
+/* Color Palette */
+/* Text Color */
+/* Link */
+/* 背景色 */
+/* 边框颜色 */
+/* 图标颜色 */
+/* Border Radius */
+/* 透明度 */
+/* Font */
+/* Line Height */
+/* 水平间距 */
+/* 垂直间距 */
+/* 图标尺寸 */
+/* z-index */
+/* timing function */
+/**
+ * CSS cubic-bezier timing functions
+ * http://bourbon.io/docs/#timing-functions
+ */
+/**
+ * 设置placeholder 颜色
+ */
+/**
+ * Default Theme
+ */
+/**
+ * Mixes a color with white. It's different from lighten()
+ *
+ * @param {color} $color
+ * @param {number (percentage)} $percent [The amout of white to be mixed in]
+ * @return {color}
+ *
+ * @example
+ *   .element {
+ *     background-color: tint(#6ecaa6 , 40%);
+ *   }
+ *
+ *   // CSS Output
+ *   .element {
+ *     background-color: #a8dfc9;
+ *   }
+ */
+/* The Color of O2Team Brand */
+/* Color */
+/* Color Palette */
+/* Text Color */
+/* Link */
+/* 背景色 */
+/* 边框颜色 */
+/* 图标颜色 */
+/* Border Radius */
+/* 透明度 */
+/* Font */
+/* Line Height */
+/* 水平间距 */
+/* 垂直间距 */
+/* 图标尺寸 */
+/* z-index */
+/* timing function */
+/**
+ * CSS cubic-bezier timing functions
+ * http://bourbon.io/docs/#timing-functions
+ */
+.at-tabs {
+  overflow: hidden; }
+  .at-tabs__item {
+    position: relative;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    padding: 24rpx 24rpx;
+    font-size: 28rpx;
+    color: #333;
+    -o-text-overflow: ellipsis;
+       text-overflow: ellipsis;
+    overflow: hidden; }
+    .at-tabs__item::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 1PX;
+      background-color: #6190E8;
+      -webkit-transform: scaleX(0);
+          -ms-transform: scaleX(0);
+              transform: scaleX(0);
+      -webkit-transition: all 0.15s;
+      -o-transition: all 0.15s;
+      transition: all 0.15s; }
+    .at-tabs__item--active {
+      color: #6190E8; }
+      .at-tabs__item--active::after {
+        -webkit-transform: scaleX(1);
+            -ms-transform: scaleX(1);
+                transform: scaleX(1); }
+  .at-tabs__header {
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #FFF;
+    overflow: -moz-scrollbars-none; }
+    .at-tabs__header--scroll {
+      overflow-x: scroll;
+      -webkit-overflow-scrolling: touch;
+      white-space: nowrap; }
+      .at-tabs__header--scroll .at-tabs__item {
+        display: inline-block;
+        overflow: visible; }
+    .at-tabs__header::-webkit-scrollbar {
+      height: 0 !important;
+      width: 0 !important; }
+  .at-tabs__body {
+    display: block;
+    font-size: 0;
+    white-space: nowrap;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+    width: 100%; }
