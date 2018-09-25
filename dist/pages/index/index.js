@@ -6,11 +6,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-
 var _index = require("../../npm/@tarojs/taro-weapp/index.js");
 
 var _index2 = _interopRequireDefault(_index);
+
+var _db = require("../db.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20,7 +20,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var db = wx.cloud.database();
+// const db = wx.cloud.database();
+
 
 var _TaroComponentClass = function (_BaseComponent) {
   _inherits(_TaroComponentClass, _BaseComponent);
@@ -41,22 +42,18 @@ var _TaroComponentClass = function (_BaseComponent) {
 
   _createClass(_TaroComponentClass, [{
     key: "_constructor",
-    value: function _constructor(props) {
-      _get(_TaroComponentClass.prototype.__proto__ || Object.getPrototypeOf(_TaroComponentClass.prototype), "_constructor", this).call(this, props);
-    }
-  }, {
-    key: "componentWillMount",
-    value: function componentWillMount() {
+    value: function _constructor() {
       var _this2 = this;
 
-      db.collection('jokes').get({
+      _db.jokes.get({
         success: function success(res) {
-          // 输出 [{ "title": "The Catcher in the Rye", ... }]
-          console.log(res);
           _this2.setState({ jokes: res.data });
         }
       });
     }
+  }, {
+    key: "componentWillMount",
+    value: function componentWillMount() {}
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {}
@@ -79,9 +76,13 @@ var _TaroComponentClass = function (_BaseComponent) {
   }, {
     key: "handleClickTabBar",
     value: function handleClickTabBar(index) {
-      index === 2 && _index2.default.navigateTo({
-        url: '/pages/addJoke/index'
-      });
+      switch (index) {
+        case 2:
+          _index2.default.navigateTo({
+            url: '/pages/addJoke/index'
+          });
+          break;
+      }
       this.setState({
         currentTabBar: index
       });
