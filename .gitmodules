@@ -1,0 +1,3 @@
+[submodule "ilearn"]
+	path = ilearn
+	url = git@github.com:canfeit/ilearn
