@@ -1,7 +1,7 @@
 {
   "miniprogramRoot": "./",
   "cloudfunctionRoot": "cloudfunctions/",
-  "description": "程序员的伊甸园",
+  "description": "猿野",
   "setting": {
     "urlCheck": true,
     "es6": false,

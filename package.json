@@ -2,7 +2,7 @@
   "name": "apeden",
   "version": "1.0.0",
   "private": true,
-  "description": "程序员的伊甸园",
+  "description": "猿野",
   "main": "index.js",
   "scripts": {
     "dev:weapp": "npm run build:weapp -- --watch",
