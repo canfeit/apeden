@@ -4,6 +4,7 @@
     "at-tabs-pane": "../../../npm/taro-ui/dist/weapp/components/tabs-pane/index",
     "at-list": "../../../npm/taro-ui/dist/weapp/components/list/index",
     "at-list-item": "../../../npm/taro-ui/dist/weapp/components/list/item/index",
+    "at-icon": "../../../npm/taro-ui/dist/weapp/components/icon/index",
     "at-tab-bar": "../../../npm/taro-ui/dist/weapp/components/tab-bar/index"
   },
   "navigationBarTitleText": "首页"

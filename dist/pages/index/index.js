@@ -6,6 +6,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
 var _index = require("../../npm/@tarojs/taro-weapp/index.js");
 
 var _index2 = _interopRequireDefault(_index);
@@ -42,18 +44,20 @@ var _TaroComponentClass = function (_BaseComponent) {
 
   _createClass(_TaroComponentClass, [{
     key: "_constructor",
-    value: function _constructor() {
+    value: function _constructor(props) {
+      _get(_TaroComponentClass.prototype.__proto__ || Object.getPrototypeOf(_TaroComponentClass.prototype), "_constructor", this).call(this, props);
+    }
+  }, {
+    key: "componentWillMount",
+    value: function componentWillMount() {
       var _this2 = this;
 
       _db.jokes.get({
         success: function success(res) {
-          _this2.setState({ jokes: res.data });
+          return _this2.setState({ jokes: res.data });
         }
       });
     }
-  }, {
-    key: "componentWillMount",
-    value: function componentWillMount() {}
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {}
@@ -79,7 +83,7 @@ var _TaroComponentClass = function (_BaseComponent) {
       switch (index) {
         case 2:
           _index2.default.redirectTo({
-            url: "/pages/addJoke/index"
+            url: '/pages/addJoke/index'
           });
           break;
       }
@@ -88,12 +92,22 @@ var _TaroComponentClass = function (_BaseComponent) {
       });
     }
   }, {
+    key: "onCheer",
+    value: function onCheer(docId, key) {
+      wx.cloud.callFunction({
+        name: 'cheer',
+        data: { docId: docId, key: key }
+      }).then(function (res) {
+        console.log(res.result); // 3
+      }).catch(console.error);
+    }
+  }, {
     key: "_createData",
     value: function _createData() {
       this.__state = arguments[0] || this.state || {};
       this.__props = arguments[1] || this.props || {};
-      var anonymousState__temp = [{ title: "最新" }, { title: "劲爆" }, { title: "段子手" }];
-      var anonymousState__temp2 = [{ iconType: "bullet-list" }, { iconType: "image" }, { iconType: "add" }, { iconType: "heart" }, { iconType: "user" }];
+      var anonymousState__temp = [{ title: '最新' }, { title: '劲爆' }, { title: '段子手' }];
+      var anonymousState__temp2 = [{ iconType: 'bullet-list' }, { iconType: 'image' }, { iconType: 'add' }, { iconType: 'heart' }, { iconType: 'user' }];
       Object.assign(this.__state, {
         anonymousState__temp: anonymousState__temp,
         anonymousState__temp2: anonymousState__temp2
@@ -106,7 +120,7 @@ var _TaroComponentClass = function (_BaseComponent) {
 }(_index.Component);
 
 _TaroComponentClass.properties = {};
-_TaroComponentClass.$$events = ["handleClick", "handleClickTabBar"];
+_TaroComponentClass.$$events = ["handleClick", "onCheer", "handleClickTabBar"];
 exports.default = _TaroComponentClass;
 
 Component(require('../../npm/@tarojs/taro-weapp/index.js').default.createComponent(_TaroComponentClass, true));
