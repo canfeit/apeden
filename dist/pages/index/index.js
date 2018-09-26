@@ -22,9 +22,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-// const db = wx.cloud.database();
-
-
 var _TaroComponentClass = function (_BaseComponent) {
   _inherits(_TaroComponentClass, _BaseComponent);
 
@@ -39,7 +36,7 @@ var _TaroComponentClass = function (_BaseComponent) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _TaroComponentClass.__proto__ || Object.getPrototypeOf(_TaroComponentClass)).call.apply(_ref, [this].concat(args))), _this), _this.$usedState = ["anonymousState__temp", "anonymousState__temp2", "current", "jokes", "currentTabBar"], _this.$$refs = [], _temp), _possibleConstructorReturn(_this, _ret);
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _TaroComponentClass.__proto__ || Object.getPrototypeOf(_TaroComponentClass)).call.apply(_ref, [this].concat(args))), _this), _this.$usedState = ["anonymousState__temp", "anonymousState__temp2", "current", "freshJokes", "hotJokes", "users", "currentTabBar"], _this.$$refs = [], _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(_TaroComponentClass, [{
@@ -53,9 +50,18 @@ var _TaroComponentClass = function (_BaseComponent) {
       var _this2 = this;
 
       _db.jokes.get({
-        success: function success(res) {
-          return _this2.setState({ jokes: res.data });
+        success: function success(_ref2) {
+          var data = _ref2.data;
+          return _this2.setState({ freshJokes: data });
         }
+      });
+      _db.jokes.orderBy('good', 'desc').get().then(function (_ref3) {
+        var data = _ref3.data;
+        return _this2.setState({ hotJokes: data });
+      });
+      _db.users.orderBy('jokes', 'desc').get().then(function (_ref4) {
+        var data = _ref4.data;
+        return _this2.setState({ users: data });
       });
     }
   }, {
@@ -97,9 +103,7 @@ var _TaroComponentClass = function (_BaseComponent) {
       wx.cloud.callFunction({
         name: 'cheer',
         data: { docId: docId, key: key }
-      }).then(function (res) {
-        console.log(res.result); // 3
-      }).catch(console.error);
+      }).then(console.log).catch(console.error);
     }
   }, {
     key: "_createData",

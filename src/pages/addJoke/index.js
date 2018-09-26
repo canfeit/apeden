@@ -1,11 +1,10 @@
-import Taro, { Component } from "@tarojs/taro";
-import { AtTextarea, AtButton } from "taro-ui";
-import "./index.css";
-// const jokes = wx.cloud.database().collection('jokes');
-import { jokes } from "../db";
+import Taro, { Component } from '@tarojs/taro';
+import { AtTextarea } from 'taro-ui';
+import { jokes } from '../db';
+import './index.css';
 export default class Index extends Component {
   config = {
-    navigationBarTitleText: "写段子"
+    navigationBarTitleText: '写段子',
   };
 
   componentWillMount() {}
@@ -22,17 +21,24 @@ export default class Index extends Component {
     this.changeTimer && clearTimeout(this.changeTimer);
     this.changeTimer = setTimeout(() => {
       this.setState({
-        content: value
+        content: value,
       });
     }, 100);
   }
 
-  onSubmit() {
+  onSubmit({ detail: { userInfo } }) {
     jokes
       .add({
-        data: { content: this.state.content }
+        data: { content: this.state.content, userName: userInfo && userInfo.nickName },
       })
       .then(() => {
+        wx.cloud
+          .callFunction({
+            name: 'upsertUser',
+            data: { data: userInfo },
+          })
+          .then(console.log)
+          .catch(console.error);
         Taro.redirectTo({
           url: '/pages/index/index',
         });
@@ -48,7 +54,14 @@ export default class Index extends Component {
           placeholder="段子内容..."
           onChange={this.onContent.bind(this)}
         />
-        <AtButton onClick={this.onSubmit}>提交</AtButton>
+        <Button openType="getUserInfo" lang="zh_CN" onGetUserInfo={this.onSubmit}>
+          提交
+        </Button>
+        {/*
+          <AtButton openType="getUserInfo" lang="zh_CN" onGetUserInfo={this.onSubmit}>
+          提交
+          </AtButton>
+        */}
       </View>
     );
   }

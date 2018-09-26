@@ -4,8 +4,8 @@
         current="{{current}}" bindonclick="handleClick" __fn_onClick="{{true}}">
             <at-tabs-pane __triggerObserer="{{ _triggerObserer }}">
                 <at-list __triggerObserer="{{ _triggerObserer }}">
-                    <block wx:if="{{jokes}}">
-                        <view wx:for="{{jokes}}" wx:for-item="joke">
+                    <block wx:if="{{freshJokes}}">
+                        <view wx:for="{{freshJokes}}" wx:for-item="joke">
                             <at-list-item title="{{joke.content}}" __triggerObserer="{{ _triggerObserer }}"></at-list-item>
                             <at-icon value="heart-2" __triggerObserer="{{ _triggerObserer }}"
                             bindonclick="onCheer" __fn_onClick="{{true}}" data-e-onCheer-so="this"
@@ -16,8 +16,30 @@
                     </block>
                 </at-list>
             </at-tabs-pane>
-            <at-tabs-pane __triggerObserer="{{ _triggerObserer }}">2</at-tabs-pane>
-            <at-tabs-pane __triggerObserer="{{ _triggerObserer }}">3</at-tabs-pane>
+            <at-tabs-pane __triggerObserer="{{ _triggerObserer }}">
+                <at-list __triggerObserer="{{ _triggerObserer }}">
+                    <block wx:if="{{hotJokes}}">
+                        <view wx:for="{{hotJokes}}" wx:for-item="joke">
+                            <at-list-item title="{{joke.content}}" __triggerObserer="{{ _triggerObserer }}"></at-list-item>
+                            <at-icon value="heart-2" __triggerObserer="{{ _triggerObserer }}"
+                            bindonclick="onCheer" __fn_onClick="{{true}}" data-e-onCheer-so="this"
+                            data-e-onCheer-a-a="{{joke._id}}" data-e-onCheer-a-b="good"></at-icon>{{joke.good}}
+                            <at-icon value="heart" __triggerObserer="{{ _triggerObserer }}"
+                            bindonclick="onCheer" __fn_onClick="{{true}}" data-e-onCheer-so="this"
+                            data-e-onCheer-a-a="{{joke._id}}" data-e-onCheer-a-b="boo"></at-icon>{{joke.boo}}</view>
+                    </block>
+                </at-list>
+            </at-tabs-pane>
+            <at-tabs-pane __triggerObserer="{{ _triggerObserer }}">
+                <at-list __triggerObserer="{{ _triggerObserer }}">
+                    <block wx:if="{{users}}">
+                        <block wx:if="{{user.nickName}}" wx:for="{{users}}" wx:for-item="user">
+                            <at-list-item title="{{user.nickName}}" __triggerObserer="{{ _triggerObserer }}"
+                            extraText="{{'段子:' + user.jokes}}"></at-list-item>
+                        </block>
+                    </block>
+                </at-list>
+            </at-tabs-pane>
         </at-tabs>
         <at-tab-bar fixed="{{true}}" __triggerObserer="{{ _triggerObserer }}"
         tabList="{{anonymousState__temp2}}" bindonclick="handleClickTabBar" current="{{currentTabBar}}"

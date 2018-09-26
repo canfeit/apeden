@@ -22,9 +22,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-// const jokes = wx.cloud.database().collection('jokes');
-
-
 var Index = function (_BaseComponent) {
   _inherits(Index, _BaseComponent);
 
@@ -78,10 +75,16 @@ var Index = function (_BaseComponent) {
     }
   }, {
     key: "onSubmit",
-    value: function onSubmit() {
+    value: function onSubmit(_ref3) {
+      var userInfo = _ref3.detail.userInfo;
+
       _db.jokes.add({
-        data: { content: this.state.content }
+        data: { content: this.state.content, userName: userInfo && userInfo.nickName }
       }).then(function () {
+        wx.cloud.callFunction({
+          name: 'upsertUser',
+          data: { data: userInfo }
+        }).then(console.log).catch(console.error);
         _index2.default.redirectTo({
           url: '/pages/index/index'
         });

@@ -1,9 +1,7 @@
 import Taro, { Component } from '@tarojs/taro';
 import { AtList, AtListItem, AtTabs, AtTabsPane, AtTabBar, AtIcon } from 'taro-ui';
+import { jokes, users } from '../db';
 import './index.css';
-
-// const db = wx.cloud.database();
-import { jokes } from '../db';
 
 export default class extends Component {
   config = {
@@ -12,8 +10,16 @@ export default class extends Component {
 
   componentWillMount() {
     jokes.get({
-      success: res => this.setState({ jokes: res.data }),
+      success: ({ data }) => this.setState({ freshJokes: data }),
     });
+    jokes
+      .orderBy('good', 'desc')
+      .get()
+      .then(({ data }) => this.setState({ hotJokes: data }));
+    users
+      .orderBy('jokes', 'desc')
+      .get()
+      .then(({ data }) => this.setState({ users: data }));
   }
 
   componentDidMount() {}
@@ -49,9 +55,7 @@ export default class extends Component {
         name: 'cheer',
         data: { docId, key },
       })
-      .then(res => {
-        console.log(res.result); // 3
-      })
+      .then(console.log)
       .catch(console.error);
   }
 
@@ -65,8 +69,8 @@ export default class extends Component {
         >
           <AtTabsPane>
             <AtList>
-              {this.state.jokes &&
-                this.state.jokes.map(joke => (
+              {this.state.freshJokes &&
+                this.state.freshJokes.map(joke => (
                   <View>
                     <AtListItem title={joke.content} />
                     <AtIcon value="heart-2" onClick={this.onCheer.bind(this, joke._id, 'good')} />
@@ -77,8 +81,31 @@ export default class extends Component {
                 ))}
             </AtList>
           </AtTabsPane>
-          <AtTabsPane>2</AtTabsPane>
-          <AtTabsPane>3</AtTabsPane>
+          <AtTabsPane>
+            <AtList>
+              {this.state.hotJokes &&
+                this.state.hotJokes.map(joke => (
+                  <View>
+                    <AtListItem title={joke.content} />
+                    <AtIcon value="heart-2" onClick={this.onCheer.bind(this, joke._id, 'good')} />
+                    {joke.good}
+                    <AtIcon value="heart" onClick={this.onCheer.bind(this, joke._id, 'boo')} />
+                    {joke.boo}
+                  </View>
+                ))}
+            </AtList>
+          </AtTabsPane>
+          <AtTabsPane>
+            <AtList>
+              {this.state.users &&
+                this.state.users.map(
+                  user =>
+                    user.nickName && (
+                      <AtListItem title={user.nickName} extraText={'段子:' + user.jokes} />
+                    )
+                )}
+            </AtList>
+          </AtTabsPane>
         </AtTabs>
         <AtTabBar
           fixed
