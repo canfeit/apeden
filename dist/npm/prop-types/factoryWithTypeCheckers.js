@@ -14,7 +14,7 @@ var checkPropTypes = require('./checkPropTypes');
 
 var printWarning = function () {};
 
-{
+if (true) {
   printWarning = function (text) {
     var message = 'Warning: ' + text;
     if (typeof console !== 'undefined') {
@@ -164,7 +164,7 @@ module.exports = function (isValidElement, throwOnDirectAccess) {
   PropTypeError.prototype = Error.prototype;
 
   function createChainableTypeChecker(validate) {
-    {
+    if (true) {
       var manualPropTypeCallCache = {};
       var manualPropTypeWarningCount = 0;
     }
@@ -178,7 +178,7 @@ module.exports = function (isValidElement, throwOnDirectAccess) {
           var err = new Error("Calling PropTypes validators directly is not supported by the `prop-types` package. Use `PropTypes.checkPropTypes()` to call them. Read more at http://fb.me/use-check-prop-types");
           err.name = 'Invariant Violation';
           throw err;
-        } else if (typeof console !== 'undefined') {
+        } else if (true && typeof console !== 'undefined') {
           // Old behavior for people using React.PropTypes
           var cacheKey = componentName + ':' + propName;
           if (!manualPropTypeCallCache[cacheKey] &&
@@ -277,7 +277,7 @@ module.exports = function (isValidElement, throwOnDirectAccess) {
 
   function createEnumTypeChecker(expectedValues) {
     if (!Array.isArray(expectedValues)) {
-      printWarning('Invalid argument supplied to oneOf, expected an instance of array.');
+      true ? printWarning('Invalid argument supplied to oneOf, expected an instance of array.') : undefined;
       return emptyFunctionThatReturnsNull;
     }
 
@@ -320,7 +320,7 @@ module.exports = function (isValidElement, throwOnDirectAccess) {
 
   function createUnionTypeChecker(arrayOfTypeCheckers) {
     if (!Array.isArray(arrayOfTypeCheckers)) {
-      printWarning('Invalid argument supplied to oneOfType, expected an instance of array.');
+      true ? printWarning('Invalid argument supplied to oneOfType, expected an instance of array.') : undefined;
       return emptyFunctionThatReturnsNull;
     }
 

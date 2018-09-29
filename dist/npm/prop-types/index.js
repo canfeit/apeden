@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-{
+if (true) {
   var REACT_ELEMENT_TYPE = typeof Symbol === 'function' && Symbol.for && Symbol.for('react.element') || 0xeac7;
 
   var isValidElement = function (object) {
@@ -16,4 +16,8 @@
   // http://fb.me/prop-types-in-prod
   var throwOnDirectAccess = true;
   module.exports = require('./factoryWithTypeCheckers')(isValidElement, throwOnDirectAccess);
+} else {
+  // By explicitly using `prop-types` you are opting into new production behavior.
+  // http://fb.me/prop-types-in-prod
+  module.exports = require('./factoryWithThrowingShims')();
 }

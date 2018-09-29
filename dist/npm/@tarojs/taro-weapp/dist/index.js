@@ -1571,6 +1571,7 @@ var otherApis = {
   checkIsSupportFacialRecognition: true,
   startFacialRecognitionVerify: true,
   startFacialRecognitionVerifyAndUploadVideo: true,
+  faceVerifyForPay: true,
   requestPayment: true,
   showShareMenu: true,
   hideShareMenu: true,
@@ -1584,6 +1585,7 @@ var otherApis = {
   getWeRunData: true,
   navigateToMiniProgram: true,
   navigateBackMiniProgram: true,
+  chooseInvoice: true,
   chooseInvoiceTitle: true,
   checkIsSupportSoterAuthentication: true,
   startSoterAuthentication: true,
@@ -1733,7 +1735,7 @@ var ReactPropTypesSecret_1 = ReactPropTypesSecret;
 
 var printWarning = function printWarning() {};
 
-{
+if (true) {
   var ReactPropTypesSecret$1 = ReactPropTypesSecret_1;
   var loggedTypeFailures = {};
 
@@ -1765,7 +1767,7 @@ var printWarning = function printWarning() {};
  */
 
 function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
-  {
+  if (true) {
     for (var typeSpecName in typeSpecs) {
       if (typeSpecs.hasOwnProperty(typeSpecName)) {
         var error; // Prop type validation may throw. In case they do, we don't want to
@@ -1806,7 +1808,7 @@ var checkPropTypes_1 = checkPropTypes;
 
 var printWarning$1 = function printWarning() {};
 
-{
+if (true) {
   printWarning$1 = function printWarning(text) {
     var message = 'Warning: ' + text;
 
@@ -1960,7 +1962,7 @@ var factoryWithTypeCheckers = function factoryWithTypeCheckers(isValidElement, t
   PropTypeError.prototype = Error.prototype;
 
   function createChainableTypeChecker(validate) {
-    {
+    if (true) {
       var manualPropTypeCallCache = {};
       var manualPropTypeWarningCount = 0;
     }
@@ -1975,7 +1977,7 @@ var factoryWithTypeCheckers = function factoryWithTypeCheckers(isValidElement, t
           var err = new Error("Calling PropTypes validators directly is not supported by the `prop-types` package. Use `PropTypes.checkPropTypes()` to call them. Read more at http://fb.me/use-check-prop-types");
           err.name = 'Invariant Violation';
           throw err;
-        } else if (typeof console !== 'undefined') {
+        } else if (true && typeof console !== 'undefined') {
           // Old behavior for people using React.PropTypes
           var cacheKey = componentName + ':' + propName;
 
@@ -2089,7 +2091,7 @@ var factoryWithTypeCheckers = function factoryWithTypeCheckers(isValidElement, t
 
   function createEnumTypeChecker(expectedValues) {
     if (!Array.isArray(expectedValues)) {
-      printWarning$1('Invalid argument supplied to oneOf, expected an instance of array.');
+      true ? printWarning$1('Invalid argument supplied to oneOf, expected an instance of array.') : undefined;
       return emptyFunctionThatReturnsNull;
     }
 
@@ -2140,7 +2142,7 @@ var factoryWithTypeCheckers = function factoryWithTypeCheckers(isValidElement, t
 
   function createUnionTypeChecker(arrayOfTypeCheckers) {
     if (!Array.isArray(arrayOfTypeCheckers)) {
-      printWarning$1('Invalid argument supplied to oneOfType, expected an instance of array.');
+      true ? printWarning$1('Invalid argument supplied to oneOfType, expected an instance of array.') : undefined;
       return emptyFunctionThatReturnsNull;
     }
 
@@ -2442,7 +2444,7 @@ var propTypes = createCommonjsModule(function (module) {
    * This source code is licensed under the MIT license found in the
    * LICENSE file in the root directory of this source tree.
    */
-  {
+  if (true) {
     var REACT_ELEMENT_TYPE = typeof Symbol === 'function' && Symbol.for && Symbol.for('react.element') || 0xeac7;
 
     var isValidElement = function isValidElement(object) {
@@ -2453,6 +2455,10 @@ var propTypes = createCommonjsModule(function (module) {
 
     var throwOnDirectAccess = true;
     module.exports = factoryWithTypeCheckers(isValidElement, throwOnDirectAccess);
+  } else {
+    // By explicitly using `prop-types` you are opting into new production behavior.
+    // http://fb.me/prop-types-in-prod
+    module.exports = factoryWithThrowingShims();
   }
 });
 
@@ -3635,6 +3641,10 @@ Object.is = Object.is || function (x, y) {
 };
 
 function shallowEqual(obj1, obj2) {
+  if (obj1 === null && obj2 === null) {
+    return true;
+  }
+
   if (obj1 === null || obj2 === null) {
     return false;
   }
