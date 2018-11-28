@@ -1,79 +1,55 @@
 const config = {
-  projectName: 'apedenApp',
-  date: '2018-9-24',
+  projectName: "apedenApp",
+  date: "2018-9-24",
   designWidth: 750,
   deviceRatio: {
-    '640': 2.34 / 2,
-    '750': 1,
-    '828': 1.81 / 2
+    "640": 2.34 / 2,
+    "750": 1,
+    "828": 1.81 / 2
   },
-  sourceRoot: 'src',
-  outputRoot: 'dist',
+  sourceRoot: "src",
+  outputRoot: "dist",
   plugins: {
     babel: {
       sourceMap: true,
-      presets: [
-        'env'
-      ],
+      presets: ["env"],
       plugins: [
-        'transform-class-properties',
-        'transform-decorators-legacy',
-        'transform-object-rest-spread'
+        "transform-class-properties",
+        "transform-decorators-legacy",
+        "transform-object-rest-spread"
       ]
-    },
-    typescript: {
-      compilerOptions: {
-        allowSyntheticDefaultImports: true,
-        baseUrl: '.',
-        declaration: false,
-        experimentalDecorators: true,
-        jsx: 'preserve',
-        jsxFactory: 'Nerv.createElement',
-        module: 'commonjs',
-        moduleResolution: 'node',
-        noImplicitAny: false,
-        noUnusedLocals: true,
-        outDir: './dist/',
-        preserveConstEnums: true,
-        removeComments: false,
-        rootDir: '.',
-        sourceMap: true,
-        strictNullChecks: true,
-        target: 'es6'
-      },
-      include: [
-        'src/**/*'
-      ],
-      exclude: [
-        'node_modules'
-      ],
-      compileOnSave: false
     }
   },
-  defineConstants: {
-  },
+  defineConstants: {},
   copy: {
-     patterns: [
-    ],
-    options: {
-    }
+    patterns: [],
+    options: {}
   },
   weapp: {
     module: {
       postcss: {
         autoprefixer: {
-          enable: true
+          enable: true,
+          config: {
+            browsers: ["last 3 versions", "Android >= 4.1", "ios >= 8"]
+          }
+        },
+        pxtransform: {
+          enable: true,
+          config: {}
         },
         url: {
           enable: true,
-          limit: 10240
+          config: {
+            limit: 10240 // 设定转换尺寸上限
+          }
         }
       }
     }
   },
   h5: {
-    publicPath: '/',
-    staticDirectory: 'static',
+    publicPath: "/",
+    staticDirectory: "static",
     module: {
       postcss: {
         autoprefixer: {
@@ -82,11 +58,11 @@ const config = {
       }
     }
   }
-}
+};
 
-module.exports = function (merge) {
-  if (process.env.NODE_ENV === 'development') {
-    return merge({}, config, require('./dev'))
+module.exports = function(merge) {
+  if (process.env.NODE_ENV === "development") {
+    return merge({}, config, require("./dev"));
   }
-  return merge({}, config, require('./prod'))
-}
+  return merge({}, config, require("./prod"));
+};
