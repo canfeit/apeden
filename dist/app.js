@@ -12,13 +12,15 @@ var _index2 = _interopRequireDefault(_index);
 
 var _index3 = require("./npm/@tarojs/redux/index.js");
 
-var _dva = require("./dva.js");
+var _index4 = require("./npm/dva-core/index.js");
 
-var _dva2 = _interopRequireDefault(_dva);
+var _index5 = require("./npm/dva-loading/lib/index.js");
 
-var _index4 = require("./models/index.js");
+var _index6 = _interopRequireDefault(_index5);
 
-var _index5 = _interopRequireDefault(_index4);
+var _index7 = require("./models/index.js");
+
+var _index8 = _interopRequireDefault(_index7);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28,15 +30,18 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+// 在 h5 环境中开启 React Devtools
 wx.cloud.init({
   traceUser: true
 });
 
-var app = _dva2.default.createApp({
-  initialState: {},
-  models: _index5.default
+var app = (0, _index4.create)();
+app.use((0, _index6.default)());
+_index8.default.forEach(function (model) {
+  return app.model(model);
 });
-var store = app.getStore();
+app.start();
+var store = app._store;
 
 (0, _index3.setStore)(store);
 

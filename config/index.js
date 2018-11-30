@@ -12,12 +12,7 @@ const config = {
   plugins: {
     babel: {
       sourceMap: true,
-      presets: ["env"],
-      plugins: [
-        "transform-class-properties",
-        "transform-decorators-legacy",
-        "transform-object-rest-spread"
-      ]
+      presets: ["env"]
     }
   },
   defineConstants: {},
@@ -29,7 +24,10 @@ const config = {
     module: {
       postcss: {
         autoprefixer: {
-          enable: true
+          enable: true,
+          config: {
+            browsers: ["last 3 versions", "Android >= 4.1", "ios >= 8"]
+          }
         },
         pxtransform: {
           enable: true,

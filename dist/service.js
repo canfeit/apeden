@@ -10,7 +10,7 @@ var cheer = exports.cheer = function cheer(docId, key) {
   wx.cloud.callFunction({
     name: "cheer",
     data: { docId: docId, key: key }
-  }).then(console.log).catch(console.error);
+  });
 };
 var getHotJokes = exports.getHotJokes = function getHotJokes(dispatch) {
   jokes.orderBy("good", "desc").get().then(function (_ref) {
@@ -40,9 +40,7 @@ var getUsers = exports.getUsers = function getUsers(dispatch) {
   });
 };
 var addJoke = exports.addJoke = function addJoke(data) {
-  return wx.cloud.database().collection("jokes").add({
-    data: data
-  });
+  return jokes.add({ data: data });
 };
 var upsertUser = exports.upsertUser = function upsertUser(userInfo) {
   return wx.cloud.callFunction({

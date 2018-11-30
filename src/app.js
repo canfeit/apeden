@@ -1,19 +1,23 @@
 import Taro, { Component } from "@tarojs/taro";
 import { Provider } from "@tarojs/redux";
-import dva from "./dva";
+import { create } from "dva-core";
+import loading from "dva-loading";
 import models from "./models";
 import Index from "./pages/index";
 import "./app.css";
+// 在 h5 环境中开启 React Devtools
+if (process.env.NODE_ENV !== "production" && process.env.TARO_ENV === "h5")
+  require("nerv-devtools");
+
 wx.cloud.init({
   traceUser: true
 });
-if (process.env.NODE_ENV !== "production" && process.env.TARO_ENV === "h5")
-  require("nerv-devtools");
-const app = dva.createApp({
-  initialState: {},
-  models: models
-});
-const store = app.getStore();
+
+const app = create();
+app.use(loading());
+models.forEach(model => app.model(model));
+app.start();
+const store = app._store;
 
 class App extends Component {
   config = {

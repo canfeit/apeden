@@ -1,7 +1,10 @@
 {
   "miniprogramRoot": "./",
   "cloudfunctionRoot": "cloudfunctions/",
+  "projectname": "apeden",
   "description": "猿野",
+  "appid": "wx614eaa0d0e688686",
+  "libVersion": "2.3.0",
   "setting": {
     "urlCheck": true,
     "es6": false,
@@ -9,35 +12,5 @@
     "minified": false,
     "newFeature": true
   },
-  "appid": "wx614eaa0d0e688686",
-  "projectname": "apeden",
-  "libVersion": "2.3.0",
-  "compileType": "miniprogram",
-  "condition": {
-    "search": {
-      "current": -1,
-      "list": []
-    },
-    "conversation": {
-      "current": -1,
-      "list": []
-    },
-    "plugin": {
-      "current": -1,
-      "list": []
-    },
-    "game": {
-      "list": []
-    },
-    "miniprogram": {
-      "current": 0,
-      "list": [
-        {
-          "id": -1,
-          "name": "db guide",
-          "pathName": "pages/databaseGuide/databaseGuide"
-        }
-      ]
-    }
-  }
+  "compileType": "miniprogram"
 }

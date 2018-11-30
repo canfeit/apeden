@@ -2,13 +2,10 @@ const jokes = wx.cloud.database().collection("jokes");
 const users = wx.cloud.database().collection("users");
 
 export const cheer = (docId, key) => {
-  wx.cloud
-    .callFunction({
-      name: "cheer",
-      data: { docId, key }
-    })
-    .then(console.log)
-    .catch(console.error);
+  wx.cloud.callFunction({
+    name: "cheer",
+    data: { docId, key }
+  });
 };
 export const getHotJokes = dispatch => {
   jokes
@@ -43,14 +40,7 @@ export const getUsers = dispatch => {
       })
     );
 };
-export const addJoke = data => {
-  return wx.cloud
-    .database()
-    .collection("jokes")
-    .add({
-      data: data
-    });
-};
+export const addJoke = data => jokes.add({ data });
 export const upsertUser = userInfo => {
   return wx.cloud.callFunction({
     name: "upsertUser",
