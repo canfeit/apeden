@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "joke-list": "../../components/JokeList",
+    "tab-bar": "../../components/TabBar"
+  },
+  "navigationBarTitleText": "热门段子",
+  "enablePullDownRefresh": true
+}

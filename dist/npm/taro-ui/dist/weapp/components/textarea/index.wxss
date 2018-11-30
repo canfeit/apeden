@@ -273,6 +273,47 @@
  * CSS cubic-bezier timing functions
  * http://bourbon.io/docs/#timing-functions
  */
+/**
+ * Default Theme
+ */
+/**
+ * Mixes a color with white. It's different from lighten()
+ *
+ * @param {color} $color
+ * @param {number (percentage)} $percent [The amout of white to be mixed in]
+ * @return {color}
+ *
+ * @example
+ *   .element {
+ *     background-color: tint(#6ecaa6 , 40%);
+ *   }
+ *
+ *   // CSS Output
+ *   .element {
+ *     background-color: #a8dfc9;
+ *   }
+ */
+/* The Color of O2Team Brand */
+/* Color */
+/* Color Palette */
+/* Text Color */
+/* Link */
+/* 背景色 */
+/* 边框颜色 */
+/* 图标颜色 */
+/* Border Radius */
+/* 透明度 */
+/* Font */
+/* Line Height */
+/* 水平间距 */
+/* 垂直间距 */
+/* 图标尺寸 */
+/* z-index */
+/* timing function */
+/**
+ * CSS cubic-bezier timing functions
+ * http://bourbon.io/docs/#timing-functions
+ */
 .at-textarea {
   padding: 18rpx;
   width: 100%;
@@ -282,10 +323,10 @@
   background-color: #FFF;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  border-top: 1PX #e2ecf4 solid;
-  border-bottom: 1PX #e2ecf4 solid;
-  border-right: 1PX #e2ecf4 solid;
-  border-left: 1PX #e2ecf4 solid; }
+  border-top: 1PX #d6e4ef solid;
+  border-bottom: 1PX #d6e4ef solid;
+  border-right: 1PX #d6e4ef solid;
+  border-left: 1PX #d6e4ef solid; }
   .at-textarea__textarea {
     width: 100%;
     height: 112rpx;

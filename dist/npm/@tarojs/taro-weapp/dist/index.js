@@ -38,6 +38,40 @@ function _createClass(Constructor, protoProps, staticProps) {
   return Constructor;
 }
 
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function _objectSpread(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+    var ownKeys = Object.keys(source);
+
+    if (typeof Object.getOwnPropertySymbols === 'function') {
+      ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {
+        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
+      }));
+    }
+
+    ownKeys.forEach(function (key) {
+      _defineProperty(target, key, source[key]);
+    });
+  }
+
+  return target;
+}
+
 function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function");
@@ -46,12 +80,27 @@ function _inherits(subClass, superClass) {
   subClass.prototype = Object.create(superClass && superClass.prototype, {
     constructor: {
       value: subClass,
-      enumerable: false,
       writable: true,
       configurable: true
     }
   });
-  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+  if (superClass) _setPrototypeOf(subClass, superClass);
+}
+
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  return _setPrototypeOf(o, p);
 }
 
 function _assertThisInitialized(self) {
@@ -1169,29 +1218,18 @@ function get(object, path, defaultValue) {
  * // => 5
  */
 
-function set(object, path, value) {
+function set$1(object, path, value) {
   return object == null ? object : baseSet(object, path, value);
 }
 
-/*!
- * dashify <https://github.com/jonschlinkert/dashify>
- *
- * console.log(dashify('fooBar'));
- * => 'foo-bar'
- * Copyright (c) 2015-2017, Jon Schlinkert.
- * Released under the MIT License.
- */
-function dashify(str, options) {
-  if (typeof str !== 'string') {
-    throw new TypeError('expected a string');
-  }
+var upperCasePattern = /([A-Z])/g;
 
-  return str.trim().replace(/([a-z])([A-Z])/g, '$1-$2').replace(/\W/g, function (m) {
-    return (/[À-ž]/.test(m) ? m : '-'
-    );
-  }).replace(/^-+|-+$/g, '').replace(/-{2,}/g, function (m) {
-    return options && options.condense ? '-' : m;
-  }).toLowerCase();
+function dashify(str) {
+  return str.replace(upperCasePattern, dashLower);
+}
+
+function dashLower(c) {
+  return '-' + c.toLowerCase();
 }
 
 function isObject$1(val) {
@@ -1220,26 +1258,29 @@ function inlineStyle(obj) {
   }).join(';');
 }
 
-function isObject$2(arg) {
-  return arg === Object(arg) && typeof arg !== 'function';
-}
-
-function getOriginal(item) {
-  if (isObject$2(item)) {
-    return item.$$original || item;
-  }
-
-  return item;
-}
-
 var ENV_TYPE = {
   WEAPP: 'WEAPP',
   WEB: 'WEB',
-  RN: 'RN'
+  RN: 'RN',
+  SWAN: 'SWAN',
+  ALIPAY: 'ALIPAY',
+  TT: 'TT'
 };
 function getEnv() {
   if (typeof wx !== 'undefined' && wx.getSystemInfo) {
     return ENV_TYPE.WEAPP;
+  }
+
+  if (typeof swan !== 'undefined' && swan.getSystemInfo) {
+    return ENV_TYPE.SWAN;
+  }
+
+  if (typeof my !== 'undefined' && my.getSystemInfo) {
+    return ENV_TYPE.ALIPAY;
+  }
+
+  if (typeof tt !== 'undefined' && tt.getSystemInfo) {
+    return ENV_TYPE.TT;
   }
 
   if (typeof global !== 'undefined' && global.__fbGenNativeModule) {
@@ -1251,6 +1292,23 @@ function getEnv() {
   }
 
   return 'Unknown environment';
+}
+
+function isObject$2(arg) {
+  return arg === Object(arg) && typeof arg !== 'function';
+}
+
+var env = null;
+function getOriginal(item) {
+  if (env === null) {
+    env = getEnv();
+  }
+
+  if (isObject$2(item)) {
+    return item[env === ENV_TYPE.SWAN ? 'privateOriginal' : '$original'] || item;
+  }
+
+  return item;
 }
 
 var Events =
@@ -1409,7 +1467,10 @@ var onAndSyncApis = {
   clearStorageSync: true,
   getSystemInfoSync: true,
   getExtConfigSync: true,
-  getLogManager: true
+  getLogManager: true,
+  onMemoryWarning: true,
+  reportAnalytics: true,
+  navigateToSmartGameProgram: true
 };
 var noPromiseApis = {
   // 媒体
@@ -1453,6 +1514,7 @@ var noPromiseApis = {
   // 拓展接口
   arrayBufferToBase64: true,
   base64ToArrayBuffer: true,
+  getAccountInfoSync: true,
   getUpdateManager: true,
   createWorker: true
 };
@@ -1589,8 +1651,32 @@ var otherApis = {
   chooseInvoiceTitle: true,
   checkIsSupportSoterAuthentication: true,
   startSoterAuthentication: true,
-  checkIsSoterEnrolledInDevice: true //
-
+  checkIsSoterEnrolledInDevice: true,
+  setEnableDebug: true,
+  // 百度小程序专有 API
+  // 百度小程序 AI 相关
+  ocrIdCard: true,
+  ocrBankCard: true,
+  ocrDrivingLicense: true,
+  ocrVehicleLicense: true,
+  textReview: true,
+  textToAudio: true,
+  imageAudit: true,
+  advancedGeneralIdentify: true,
+  objectDetectIdentify: true,
+  carClassify: true,
+  dishClassify: true,
+  logoClassify: true,
+  animalClassify: true,
+  plantClassify: true,
+  // 用户信息
+  getSwanId: true,
+  // 百度收银台支付
+  requestPolymerPayment: true,
+  // 打开小程序
+  navigateToSmartProgram: true,
+  navigateBackSmartProgram: true,
+  preloadSubPackage: true
 };
 
 function initPxTransform(config) {
@@ -1735,7 +1821,7 @@ var ReactPropTypesSecret_1 = ReactPropTypesSecret;
 
 var printWarning = function printWarning() {};
 
-if (true) {
+{
   var ReactPropTypesSecret$1 = ReactPropTypesSecret_1;
   var loggedTypeFailures = {};
 
@@ -1767,7 +1853,7 @@ if (true) {
  */
 
 function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
-  if (true) {
+  {
     for (var typeSpecName in typeSpecs) {
       if (typeSpecs.hasOwnProperty(typeSpecName)) {
         var error; // Prop type validation may throw. In case they do, we don't want to
@@ -1808,7 +1894,7 @@ var checkPropTypes_1 = checkPropTypes;
 
 var printWarning$1 = function printWarning() {};
 
-if (true) {
+{
   printWarning$1 = function printWarning(text) {
     var message = 'Warning: ' + text;
 
@@ -1962,7 +2048,7 @@ var factoryWithTypeCheckers = function factoryWithTypeCheckers(isValidElement, t
   PropTypeError.prototype = Error.prototype;
 
   function createChainableTypeChecker(validate) {
-    if (true) {
+    {
       var manualPropTypeCallCache = {};
       var manualPropTypeWarningCount = 0;
     }
@@ -1977,7 +2063,7 @@ var factoryWithTypeCheckers = function factoryWithTypeCheckers(isValidElement, t
           var err = new Error("Calling PropTypes validators directly is not supported by the `prop-types` package. Use `PropTypes.checkPropTypes()` to call them. Read more at http://fb.me/use-check-prop-types");
           err.name = 'Invariant Violation';
           throw err;
-        } else if (true && typeof console !== 'undefined') {
+        } else if (typeof console !== 'undefined') {
           // Old behavior for people using React.PropTypes
           var cacheKey = componentName + ':' + propName;
 
@@ -2091,7 +2177,7 @@ var factoryWithTypeCheckers = function factoryWithTypeCheckers(isValidElement, t
 
   function createEnumTypeChecker(expectedValues) {
     if (!Array.isArray(expectedValues)) {
-      true ? printWarning$1('Invalid argument supplied to oneOf, expected an instance of array.') : undefined;
+      printWarning$1('Invalid argument supplied to oneOf, expected an instance of array.');
       return emptyFunctionThatReturnsNull;
     }
 
@@ -2142,7 +2228,7 @@ var factoryWithTypeCheckers = function factoryWithTypeCheckers(isValidElement, t
 
   function createUnionTypeChecker(arrayOfTypeCheckers) {
     if (!Array.isArray(arrayOfTypeCheckers)) {
-      true ? printWarning$1('Invalid argument supplied to oneOfType, expected an instance of array.') : undefined;
+      printWarning$1('Invalid argument supplied to oneOfType, expected an instance of array.');
       return emptyFunctionThatReturnsNull;
     }
 
@@ -2444,7 +2530,7 @@ var propTypes = createCommonjsModule(function (module) {
    * This source code is licensed under the MIT license found in the
    * LICENSE file in the root directory of this source tree.
    */
-  if (true) {
+  {
     var REACT_ELEMENT_TYPE = typeof Symbol === 'function' && Symbol.for && Symbol.for('react.element') || 0xeac7;
 
     var isValidElement = function isValidElement(object) {
@@ -2455,10 +2541,6 @@ var propTypes = createCommonjsModule(function (module) {
 
     var throwOnDirectAccess = true;
     module.exports = factoryWithTypeCheckers(isValidElement, throwOnDirectAccess);
-  } else {
-    // By explicitly using `prop-types` you are opting into new production behavior.
-    // http://fb.me/prop-types-in-prod
-    module.exports = factoryWithThrowingShims();
   }
 });
 
@@ -2744,13 +2826,13 @@ function diffArrToPath(to, from) {
   var keyPrev = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '';
   var len = to.length;
 
-  for (var i = 0; i < len; i++) {
+  var _loop = function _loop(i) {
     var toItem = to[i];
     var fromItem = from[i];
     var targetKey = "".concat(keyPrev, "[").concat(i, "]");
 
     if (toItem === fromItem) {
-      continue;
+      return "continue";
     } else if (_typeof(toItem) !== _typeof(fromItem)) {
       res[targetKey] = toItem;
     } else {
@@ -2763,22 +2845,39 @@ function diffArrToPath(to, from) {
         if (arrTo !== arrFrom) {
           res[targetKey] = toItem;
         } else if (arrTo && arrFrom) {
-          if (toItem.length < fromItem.length) {
-            res[targetKey] = toItem;
-          } else {
-            // 数组
+          if (toItem.length === fromItem.length) {
             diffArrToPath(toItem, fromItem, res, "".concat(targetKey));
+          } else {
+            res[targetKey] = toItem;
           }
         } else {
           if (!toItem || !fromItem || keyList(toItem).length < keyList(fromItem).length) {
             res[targetKey] = toItem;
           } else {
             // 对象
-            diffObjToPath(toItem, fromItem, res, "".concat(targetKey, "."));
+            var shouldDiffObject = true;
+            Object.keys(fromItem).some(function (key) {
+              if (typeof toItem[key] === 'undefined') {
+                shouldDiffObject = false;
+                return true;
+              }
+            });
+
+            if (shouldDiffObject) {
+              diffObjToPath(toItem, fromItem, res, "".concat(targetKey, "."));
+            } else {
+              res[targetKey] = toItem;
+            }
           }
         }
       }
     }
+  };
+
+  for (var i = 0; i < len; i++) {
+    var _ret = _loop(i);
+
+    if (_ret === "continue") continue;
   }
 
   return res;
@@ -2791,14 +2890,14 @@ function diffObjToPath(to, from) {
   var keys = keyList(to);
   var len = keys.length;
 
-  for (var i = 0; i < len; i++) {
+  var _loop2 = function _loop2(i) {
     var key = keys[i];
     var toItem = to[key];
     var fromItem = from[key];
     var targetKey = "".concat(keyPrev).concat(key);
 
     if (toItem === fromItem) {
-      continue;
+      return "continue";
     } else if (!hasProp.call(from, key)) {
       res[targetKey] = toItem;
     } else if (_typeof(toItem) !== _typeof(fromItem)) {
@@ -2813,23 +2912,40 @@ function diffObjToPath(to, from) {
         if (arrTo !== arrFrom) {
           res[targetKey] = toItem;
         } else if (arrTo && arrFrom) {
-          if (toItem.length < fromItem.length) {
-            res[targetKey] = toItem;
-          } else {
-            // 数组
+          if (toItem.length === fromItem.length) {
             diffArrToPath(toItem, fromItem, res, "".concat(targetKey));
+          } else {
+            res[targetKey] = toItem;
           }
         } else {
           // null
-          if (!toItem || !fromItem || keyList(toItem).length < keyList(fromItem).length) {
+          if (!toItem || !fromItem) {
             res[targetKey] = toItem;
           } else {
             // 对象
-            diffObjToPath(toItem, fromItem, res, "".concat(targetKey, "."));
+            var shouldDiffObject = true;
+            Object.keys(fromItem).some(function (key) {
+              if (typeof toItem[key] === 'undefined') {
+                shouldDiffObject = false;
+                return true;
+              }
+            });
+
+            if (shouldDiffObject) {
+              diffObjToPath(toItem, fromItem, res, "".concat(targetKey, "."));
+            } else {
+              res[targetKey] = toItem;
+            }
           }
         }
       }
     }
+  };
+
+  for (var i = 0; i < len; i++) {
+    var _ret2 = _loop2(i);
+
+    if (_ret2 === "continue") continue;
   }
 
   return res;
@@ -2877,6 +2993,21 @@ var _i = 1;
 function getUniqueKey() {
   return _loadTime + _i++;
 }
+function getElementById(component, id, type) {
+  if (!component) return null;
+  var res;
+
+  if (type === 'component') {
+    res = component.selectComponent(id);
+    res = res ? res.$component || res : null;
+  } else {
+    var query = wx.createSelectorQuery().in(component);
+    res = query.select(id);
+  }
+
+  if (res) return res;
+  return null;
+}
 
 var data = {};
 function cacheDataSet(key, val) {
@@ -2892,10 +3023,12 @@ function cacheDataHas(key) {
 }
 
 var privatePropValName = '__triggerObserer';
-var anonymousFnNamePreffix = 'func__';
+var anonymousFnNamePreffix = 'funPrivate';
 var componentFnReg = /^__fn_/;
 var routerParamsPrivateKey = '__key_';
-var pageExtraFns = ['onPullDownRefresh', 'onReachBottom', 'onShareAppMessage', 'onPageScroll', 'onTabItemTap'];
+var preloadPrivateKey = '__preload_';
+var preloadInitedComponent = '$preloadComponent';
+var pageExtraFns = ['onPullDownRefresh', 'onReachBottom', 'onShareAppMessage', 'onPageScroll', 'onTabItemTap', 'onResize'];
 
 function bindProperties(weappComponentConf, ComponentClass, isPage) {
   weappComponentConf.properties = ComponentClass.properties || {};
@@ -2903,17 +3036,30 @@ function bindProperties(weappComponentConf, ComponentClass, isPage) {
 
   for (var key in defaultProps) {
     if (defaultProps.hasOwnProperty(key)) {
-      weappComponentConf.properties[key] = null;
+      weappComponentConf.properties[key] = {
+        type: null,
+        value: null
+      };
     }
   }
 
   if (isPage) {
-    weappComponentConf.properties[routerParamsPrivateKey] = null;
+    weappComponentConf.properties[routerParamsPrivateKey] = {
+      type: null,
+      value: null
+    };
+    weappComponentConf.properties[preloadPrivateKey] = {
+      type: null,
+      value: null
+    };
     var defaultParams = ComponentClass.defaultParams || {};
 
     for (var _key in defaultParams) {
       if (defaultParams.hasOwnProperty(_key)) {
-        weappComponentConf.properties[_key] = null;
+        weappComponentConf.properties[_key] = {
+          type: null,
+          value: null
+        };
       }
     }
   } // 拦截props的更新，插入生命周期
@@ -2945,6 +3091,18 @@ function bindStaticOptions(weappComponentConf, ComponentClass) {
   }
 }
 
+function bindMultipleSlots(weappComponentConf, ComponentClass) {
+  var multipleSlots = ComponentClass.multipleSlots;
+
+  if (!multipleSlots) {
+    return;
+  }
+
+  weappComponentConf.options = _objectSpread({}, weappComponentConf.options, {
+    multipleSlots: multipleSlots
+  });
+}
+
 function bindStaticFns(weappComponentConf, ComponentClass) {
   for (var key in ComponentClass) {
     typeof ComponentClass[key] === 'function' && (weappComponentConf[key] = ComponentClass[key]);
@@ -2970,7 +3128,11 @@ function processEvent(eventHandlerName, obj) {
       event.stopPropagation = function () {};
 
       event.currentTarget = event.currentTarget || event.target || {};
-      Object.assign(event.target, event.detail);
+
+      if (event.target) {
+        Object.assign(event.target, event.detail);
+      }
+
       Object.assign(event.currentTarget, event.detail);
     }
 
@@ -3054,7 +3216,7 @@ function processEvent(eventHandlerName, obj) {
       realArgs = [_scope].concat(_toConsumableArray(datasetArgs), _toConsumableArray(detailArgs), [event]);
     }
 
-    scope[eventHandlerName].apply(callScope, realArgs);
+    return scope[eventHandlerName].apply(callScope, realArgs);
   };
 }
 
@@ -3079,7 +3241,7 @@ function filterProps(properties) {
 
     if (typeof componentProps[propName] === 'function') {
       newProps[propName] = componentProps[propName];
-    } else if (propName in weappComponentData && (properties[propName] !== null || weappComponentData[propName] !== null)) {
+    } else if (propName in weappComponentData) {
       newProps[propName] = weappComponentData[propName];
     }
 
@@ -3095,7 +3257,7 @@ function filterProps(properties) {
 
   if (!isEmptyObject(defaultProps)) {
     for (var _propName in defaultProps) {
-      if (newProps[_propName] === undefined) {
+      if (newProps[_propName] === undefined || newProps[_propName] === null) {
         newProps[_propName] = defaultProps[_propName];
       }
     }
@@ -3120,7 +3282,7 @@ function componentTrigger(component, key, args) {
 
   args = args || [];
 
-  if (key === 'componentWillMount') {
+  if (key === 'componentDidMount') {
     if (component['$$refs'] && component['$$refs'].length > 0) {
       var refs = {};
       component['$$refs'].forEach(function (ref) {
@@ -3128,61 +3290,21 @@ function componentTrigger(component, key, args) {
 
         if (ref.type === 'component') {
           target = component.$scope.selectComponent("#".concat(ref.id));
-          target = target.$component || target;
-
-          if ('refName' in ref && ref['refName']) {
-            refs[ref.refName] = target;
-          } else if ('fn' in ref && typeof ref['fn'] === 'function') {
-            ref['fn'].call(component, target);
-          }
-        }
-      });
-      component.refs = Object.assign({}, component.refs || {}, refs);
-    }
-  }
-
-  if (key === 'componentDidMount') {
-    if (component['$$refs'] && component['$$refs'].length > 0) {
-      var _refs = {};
-      component['$$refs'].forEach(function (ref) {
-        var target;
-        var query = wx.createSelectorQuery().in(component.$scope);
-
-        if (ref.type === 'dom') {
-          target = query.select("#".concat(ref.id));
-
-          if ('refName' in ref && ref['refName']) {
-            _refs[ref.refName] = target;
-          } else if ('fn' in ref && typeof ref['fn'] === 'function') {
-            ref['fn'].call(component, target);
-          }
-        }
-      });
-      component.refs = Object.assign({}, component.refs || {}, _refs);
-    }
-  }
-
-  if (key === 'componentDidMount') {
-    if (component['$$refs'] && component['$$refs'].length > 0) {
-      var _refs2 = {};
-      component['$$refs'].forEach(function (ref) {
-        var target;
-        var query = wx.createSelectorQuery().in(component.$scope);
-
-        if (ref.type === 'component') {
-          target = component.$scope.selectComponent("#".concat(ref.id));
-          target = target.$component || target;
+          target = target ? target.$component || target : null;
         } else {
+          var query = wx.createSelectorQuery().in(component.$scope);
           target = query.select("#".concat(ref.id));
         }
 
         if ('refName' in ref && ref['refName']) {
-          _refs2[ref.refName] = target;
+          refs[ref.refName] = target;
         } else if ('fn' in ref && typeof ref['fn'] === 'function') {
           ref['fn'].call(component, target);
         }
+
+        ref.target = target;
       });
-      component.refs = _refs2;
+      component.refs = Object.assign({}, component.refs || {}, refs);
     }
   }
 
@@ -3202,6 +3324,16 @@ function componentTrigger(component, key, args) {
     component._dirty = false;
     component._disable = false;
     component.state = component.getState();
+  }
+
+  if (key === 'componentWillUnmount') {
+    // refs
+    if (component['$$refs'] && component['$$refs'].length > 0) {
+      component['$$refs'].forEach(function (ref) {
+        return typeof ref['fn'] === 'function' && ref['fn'].call(component, null);
+      });
+      component.refs = {};
+    }
   }
 }
 
@@ -3232,7 +3364,12 @@ function createComponent(ComponentClass, isPage) {
   try {
     componentInstance.state = componentInstance._createData() || componentInstance.state;
   } catch (err) {
-    console.warn("[Taro warn] \u8BF7\u7ED9\u7EC4\u4EF6\u63D0\u4F9B\u4E00\u4E2A `defaultProps` \u4EE5\u63D0\u9AD8\u521D\u6B21\u6E32\u67D3\u6027\u80FD\uFF01");
+    if (isPage) {
+      console.warn("[Taro warn] \u8BF7\u7ED9\u9875\u9762\u63D0\u4F9B\u521D\u59CB `state` \u4EE5\u63D0\u9AD8\u521D\u6B21\u6E32\u67D3\u6027\u80FD\uFF01");
+    } else {
+      console.warn("[Taro warn] \u8BF7\u7ED9\u7EC4\u4EF6\u63D0\u4F9B\u4E00\u4E2A `defaultProps` \u4EE5\u63D0\u9AD8\u521D\u6B21\u6E32\u67D3\u6027\u80FD\uFF01");
+    }
+
     console.warn(err);
   }
 
@@ -3241,7 +3378,12 @@ function createComponent(ComponentClass, isPage) {
     data: initData,
     created: function created() {
       var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-      this.$component = new ComponentClass();
+
+      if (isPage && cacheDataHas(preloadInitedComponent)) {
+        this.$component = cacheDataGet(preloadInitedComponent, true);
+      } else {
+        this.$component = new ComponentClass({}, isPage);
+      }
 
       this.$component._init(this);
 
@@ -3253,6 +3395,7 @@ function createComponent(ComponentClass, isPage) {
       var hasParamsCache;
 
       if (isPage) {
+        // params
         var params = {};
         hasParamsCache = cacheDataHas(this.data[routerParamsPrivateKey]);
 
@@ -3263,7 +3406,13 @@ function createComponent(ComponentClass, isPage) {
           params = filterParams(this.data, ComponentClass.defaultParams);
         }
 
-        Object.assign(this.$component.$router.params, params);
+        Object.assign(this.$component.$router.params, params); // preload
+
+        if (cacheDataHas(this.data[preloadPrivateKey])) {
+          this.$component.$preloadData = cacheDataGet(this.data[preloadPrivateKey], true);
+        } else {
+          this.$component.$preloadData = null;
+        }
       }
 
       if (!isPage || hasParamsCache || ComponentClass.defaultParams) {
@@ -3317,12 +3466,28 @@ function createComponent(ComponentClass, isPage) {
         };
       }
     });
+    __wxRoute && cacheDataSet(__wxRoute, ComponentClass);
+  } else {
+    weappComponentConf.pageLifetimes = weappComponentConf.pageLifetimes || {};
+
+    weappComponentConf.pageLifetimes['show'] = function () {
+      componentTrigger(this.$component, 'componentDidShow');
+    };
+
+    weappComponentConf.pageLifetimes['hide'] = function () {
+      componentTrigger(this.$component, 'componentDidShow');
+    };
+
+    weappComponentConf.pageLifetimes['resize'] = function () {
+      componentTrigger(this.$component, 'onResize');
+    };
   }
 
   bindProperties(weappComponentConf, ComponentClass, isPage);
   bindBehaviors(weappComponentConf, ComponentClass);
   bindStaticFns(weappComponentConf, ComponentClass);
   bindStaticOptions(weappComponentConf, ComponentClass);
+  bindMultipleSlots(weappComponentConf, ComponentClass);
   ComponentClass['$$events'] && bindEvents(weappComponentConf, ComponentClass['$$events'], isPage);
 
   if (ComponentClass['externalClasses'] && ComponentClass['externalClasses'].length) {
@@ -3362,7 +3527,7 @@ function updateComponent(component) {
   var skip = false;
 
   if (component.__mounted) {
-    if (typeof component.shouldComponentUpdate === 'function' && component.shouldComponentUpdate(props, state) === false) {
+    if (typeof component.shouldComponentUpdate === 'function' && !component._isForceUpdate && component.shouldComponentUpdate(props, state) === false) {
       skip = true;
     } else if (typeof component.componentWillUpdate === 'function') {
       component.componentWillUpdate(props, state);
@@ -3372,6 +3537,7 @@ function updateComponent(component) {
   component.props = props;
   component.state = state;
   component._dirty = false;
+  component._isForceUpdate = false;
 
   if (!component.__componentWillMountTriggered) {
     component.__componentWillMountTriggered = true;
@@ -3410,13 +3576,12 @@ function doUpdate(component, prevProps, prevState) {
       }
 
       if (_typeof(val) === 'object') {
-        val = shakeFnFromObject(val);
+        if (isEmptyObject(val)) return set$1(_data, key, val);
+        val = shakeFnFromObject(val); // 避免筛选完 Fn 后产生了空对象还去渲染
 
-        if (!isEmptyObject(val)) {
-          set(_data, key, val);
-        }
+        if (!isEmptyObject(val)) set$1(_data, key, val);
       } else {
-        set(_data, key, val);
+        set$1(_data, key, val);
       }
     });
     data = _data;
@@ -3425,14 +3590,43 @@ function doUpdate(component, prevProps, prevState) {
 
   data[privatePropKeyName] = !privatePropKeyVal;
   var dataDiff = diffObjToPath(data, component.$scope.data);
+  var __mounted = component.__mounted; // 每次 setData 都独立生成一个 callback 数组
+
+  var cbs = [];
+
+  if (component._pendingCallbacks && component._pendingCallbacks.length) {
+    cbs = component._pendingCallbacks;
+    component._pendingCallbacks = [];
+  }
+
   component.$scope.setData(dataDiff, function () {
-    if (component.__mounted && typeof component.componentDidUpdate === 'function') {
-      component.componentDidUpdate(prevProps, prevState);
+    if (__mounted) {
+      if (component['$$refs'] && component['$$refs'].length > 0) {
+        component['$$refs'].forEach(function (ref) {
+          // 只有 component 类型能做判断。因为 querySelector 每次调用都一定返回 nodeRefs，无法得知 dom 类型的挂载状态。
+          if (ref.type !== 'component') return;
+          var target = component.$scope.selectComponent("#".concat(ref.id));
+          target = target ? target.$component || target : null;
+          var prevRef = ref.target;
+
+          if (target !== prevRef) {
+            if (ref.refName) component.refs[ref.refName] = target;
+            typeof ref.fn === 'function' && ref.fn.call(component, target);
+            ref.target = target;
+          }
+        });
+      }
+
+      if (typeof component.componentDidUpdate === 'function') {
+        component.componentDidUpdate(prevProps, prevState);
+      }
     }
 
-    if (component._pendingCallbacks) {
-      while (component._pendingCallbacks.length) {
-        component._pendingCallbacks.pop().call(component);
+    if (cbs.length) {
+      var i = cbs.length;
+
+      while (--i >= 0) {
+        typeof cbs[i] === 'function' && cbs[i].call(component);
       }
     }
   });
@@ -3469,72 +3663,40 @@ function () {
   // this.props,小程序中通过data.__props访问
   // 会在componentDidMount后置为true
   function BaseComponent() {
+    var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var isPage = arguments.length > 1 ? arguments[1] : undefined;
+
     _classCallCheck(this, BaseComponent);
 
-    Object.defineProperty(this, "__computed", {
-      configurable: true,
-      enumerable: true,
-      writable: true,
-      value: {}
+    _defineProperty(this, "__computed", {});
+
+    _defineProperty(this, "__props", {});
+
+    _defineProperty(this, "__isReady", false);
+
+    _defineProperty(this, "__mounted", false);
+
+    _defineProperty(this, "nextProps", {});
+
+    _defineProperty(this, "_dirty", true);
+
+    _defineProperty(this, "_disable", true);
+
+    _defineProperty(this, "_isForceUpdate", false);
+
+    _defineProperty(this, "_pendingStates", []);
+
+    _defineProperty(this, "_pendingCallbacks", []);
+
+    _defineProperty(this, "$componentType", '');
+
+    _defineProperty(this, "$router", {
+      params: {}
     });
-    Object.defineProperty(this, "__props", {
-      configurable: true,
-      enumerable: true,
-      writable: true,
-      value: {}
-    });
-    Object.defineProperty(this, "__isReady", {
-      configurable: true,
-      enumerable: true,
-      writable: true,
-      value: false
-    });
-    Object.defineProperty(this, "__mounted", {
-      configurable: true,
-      enumerable: true,
-      writable: true,
-      value: false
-    });
-    Object.defineProperty(this, "nextProps", {
-      configurable: true,
-      enumerable: true,
-      writable: true,
-      value: {}
-    });
-    Object.defineProperty(this, "_dirty", {
-      configurable: true,
-      enumerable: true,
-      writable: true,
-      value: true
-    });
-    Object.defineProperty(this, "_disable", {
-      configurable: true,
-      enumerable: true,
-      writable: true,
-      value: true
-    });
-    Object.defineProperty(this, "_pendingStates", {
-      configurable: true,
-      enumerable: true,
-      writable: true,
-      value: []
-    });
-    Object.defineProperty(this, "_pendingCallbacks", {
-      configurable: true,
-      enumerable: true,
-      writable: true,
-      value: []
-    });
-    Object.defineProperty(this, "$router", {
-      configurable: true,
-      enumerable: true,
-      writable: true,
-      value: {
-        params: {}
-      }
-    });
+
     this.state = {};
-    this.props = {};
+    this.props = props;
+    this.$componentType = isPage ? 'PAGE' : 'COMPONENT';
   }
 
   _createClass(BaseComponent, [{
@@ -3554,7 +3716,7 @@ function () {
         (this._pendingStates = this._pendingStates || []).push(state);
       }
 
-      if (typeof callback === 'function') {
+      if (isFunction$1(callback)) {
         (this._pendingCallbacks = this._pendingCallbacks || []).push(callback);
       }
 
@@ -3581,7 +3743,7 @@ function () {
 
       this._pendingStates.length = 0;
       queue.forEach(function (nextState) {
-        if (typeof nextState === 'function') {
+        if (isFunction$1(nextState)) {
           nextState = nextState.call(_this, stateClone, props);
         }
 
@@ -3592,10 +3754,11 @@ function () {
   }, {
     key: "forceUpdate",
     value: function forceUpdate(callback) {
-      if (typeof callback === 'function') {
+      if (isFunction$1(callback)) {
         (this._pendingCallbacks = this._pendingCallbacks || []).push(callback);
       }
 
+      this._isForceUpdate = true;
       updateComponent(this);
     } // 会被匿名函数调用
 
@@ -3620,10 +3783,16 @@ function () {
       } else {
         // 普通的
         var keyLower = key.toLocaleLowerCase();
-        this.$scope.triggerEvent(keyLower, {
+        var detail = {
           __isCustomEvt: true,
           __arguments: args
-        });
+        };
+
+        if (args.length > 0) {
+          detail.value = args.slice(1);
+        }
+
+        this.$scope.triggerEvent(keyLower, detail);
       }
     }
   }]);
@@ -3677,9 +3846,9 @@ function (_Component) {
   _inherits(PureComponent, _Component);
 
   function PureComponent() {
-    var _ref;
+    var _getPrototypeOf2;
 
-    var _temp, _this;
+    var _this;
 
     _classCallCheck(this, PureComponent);
 
@@ -3687,12 +3856,11 @@ function (_Component) {
       args[_key] = arguments[_key];
     }
 
-    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_ref = PureComponent.__proto__ || Object.getPrototypeOf(PureComponent)).call.apply(_ref, [this].concat(args))), Object.defineProperty(_assertThisInitialized(_this), "isPureComponent", {
-      configurable: true,
-      enumerable: true,
-      writable: true,
-      value: true
-    }), _temp));
+    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(PureComponent)).call.apply(_getPrototypeOf2, [this].concat(args)));
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "isPureComponent", true);
+
+    return _this;
   }
 
   _createClass(PureComponent, [{
@@ -3752,15 +3920,15 @@ var RequestQueue = {
   MAX_REQUEST: 5,
   queue: [],
   request: function request(options) {
-    this.push(options);
-    this.run();
+    this.push(options); // 返回request task
+
+    return this.run();
   },
   push: function push(options) {
     this.queue.push(options);
   },
   run: function run() {
-    var _this = this,
-        _arguments = arguments;
+    var _this = this;
 
     if (!this.queue.length) {
       return;
@@ -3771,12 +3939,16 @@ var RequestQueue = {
       var completeFn = options.complete;
 
       options.complete = function () {
-        completeFn && completeFn.apply(options, _toConsumableArray(_arguments));
+        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+          args[_key] = arguments[_key];
+        }
+
+        completeFn && completeFn.apply(options, args);
 
         _this.run();
       };
 
-      wx.request(options);
+      return wx.request(options);
     }
   }
 };
@@ -3793,6 +3965,7 @@ function request(options) {
   var originSuccess = options['success'];
   var originFail = options['fail'];
   var originComplete = options['complete'];
+  var requestTask;
   var p = new Promise(function (resolve, reject) {
     options['success'] = function (res) {
       originSuccess && originSuccess(res);
@@ -3808,8 +3981,19 @@ function request(options) {
       originComplete && originComplete(res);
     };
 
-    RequestQueue.request(options);
+    requestTask = RequestQueue.request(options);
   });
+
+  p.abort = function (cb) {
+    cb && cb();
+
+    if (requestTask) {
+      requestTask.abort();
+    }
+
+    return p;
+  };
+
   return p;
 }
 
@@ -3821,24 +4005,59 @@ function processApis(taro) {
     'reLaunch': true
   };
   var routerParamsPrivateKey = '__key_';
+  var preloadPrivateKey = '__preload_';
+  var preloadInitedComponent = '$preloadComponent';
   Object.keys(weApis).forEach(function (key) {
     if (!onAndSyncApis[key] && !noPromiseApis[key]) {
       taro[key] = function (options) {
+        for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+          args[_key2 - 1] = arguments[_key2];
+        }
+
         options = options || {};
         var task = null;
         var obj = Object.assign({}, options);
 
         if (typeof options === 'string') {
+          if (args.length) {
+            var _wx;
+
+            return (_wx = wx)[key].apply(_wx, [options].concat(args));
+          }
+
           return wx[key](options);
         }
 
+        if (key === 'navigateTo' || key === 'redirectTo' || key === 'switchTab') {
+          var url = obj['url'] ? obj['url'].replace(/^\//, '') : '';
+          if (url.indexOf('?') > -1) url = url.split('?')[0];
+          var Component$$1 = cacheDataGet(url);
+
+          if (Component$$1) {
+            var component = new Component$$1();
+
+            if (component.componentWillPreload) {
+              var cacheKey = getUniqueKey();
+              var MarkIndex = obj.url.indexOf('?');
+              var params = queryToJson(obj.url.substring(MarkIndex + 1, obj.url.length));
+              obj.url += (MarkIndex > -1 ? '&' : '?') + "".concat(preloadPrivateKey, "=").concat(cacheKey);
+              cacheDataSet(cacheKey, component.componentWillPreload(params));
+              cacheDataSet(preloadInitedComponent, component);
+            }
+          }
+        }
+
         if (useDataCacheApis[key]) {
-          var url = obj['url'] = obj['url'] || '';
-          var MarkIndex = url.indexOf('?');
-          var params = queryToJson(url.substring(MarkIndex + 1, url.length));
-          var cacheKey = getUniqueKey();
-          obj.url += (MarkIndex > -1 ? '&' : '?') + "".concat(routerParamsPrivateKey, "=").concat(cacheKey);
-          cacheDataSet(cacheKey, params);
+          var _url = obj['url'] = obj['url'] || '';
+
+          var _MarkIndex = _url.indexOf('?');
+
+          var _params = queryToJson(_url.substring(_MarkIndex + 1, _url.length));
+
+          var _cacheKey = getUniqueKey();
+
+          obj.url += (_MarkIndex > -1 ? '&' : '?') + "".concat(routerParamsPrivateKey, "=").concat(_cacheKey);
+          cacheDataSet(_cacheKey, _params);
         }
 
         var p = new Promise(function (resolve, reject) {
@@ -3847,24 +4066,44 @@ function processApis(taro) {
               options[k] && options[k](res);
 
               if (k === 'success') {
-                resolve(res);
+                if (key === 'connectSocket') {
+                  resolve(Promise.resolve().then(function () {
+                    return Object.assign(task, res);
+                  }));
+                } else {
+                  resolve(res);
+                }
               } else if (k === 'fail') {
                 reject(res);
               }
             };
           });
-          task = wx[key](obj);
+
+          if (args.length) {
+            var _wx2;
+
+            task = (_wx2 = wx)[key].apply(_wx2, [obj].concat(args));
+          } else {
+            task = wx[key](obj);
+          }
         });
 
         if (key === 'uploadFile' || key === 'downloadFile') {
           p.progress = function (cb) {
-            task.onProgressUpdate(cb);
+            if (task) {
+              task.onProgressUpdate(cb);
+            }
+
             return p;
           };
 
           p.abort = function (cb) {
             cb && cb();
-            task.abort();
+
+            if (task) {
+              task.abort();
+            }
+
             return p;
           };
         }
@@ -3873,8 +4112,8 @@ function processApis(taro) {
       };
     } else {
       taro[key] = function () {
-        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-          args[_key] = arguments[_key];
+        for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+          args[_key3] = arguments[_key3];
         }
 
         return wx[key].apply(wx, args);
@@ -3884,9 +4123,9 @@ function processApis(taro) {
 }
 
 function pxTransform(size) {
-  var _config = this.config,
-      designWidth = _config.designWidth,
-      deviceRatio = _config.deviceRatio;
+  var _this$config = this.config,
+      designWidth = _this$config.designWidth,
+      deviceRatio = _this$config.deviceRatio;
 
   if (!(designWidth in deviceRatio)) {
     throw new Error("deviceRatio \u914D\u7F6E\u4E2D\u4E0D\u5B58\u5728 ".concat(designWidth, " \u7684\u8BBE\u7F6E\uFF01"));
@@ -3931,10 +4170,11 @@ var Taro = {
   render: render,
   ENV_TYPE: ENV_TYPE,
   internal_safe_get: get,
-  internal_safe_set: set,
+  internal_safe_set: set$1,
   internal_inline_style: inlineStyle,
   createComponent: createComponent,
-  internal_get_original: getOriginal
+  internal_get_original: getOriginal,
+  getElementById: getElementById
 };
 initNativeApi(Taro);
 

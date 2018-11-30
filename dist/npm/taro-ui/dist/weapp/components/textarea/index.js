@@ -48,44 +48,45 @@ var AtTextarea = function (_AtComponent) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = AtTextarea.__proto__ || Object.getPrototypeOf(AtTextarea)).call.apply(_ref, [this].concat(args))), _this), _this.$usedState = ["anonymousState__temp", "anonymousState__temp2", "anonymousState__temp3", "anonymousState__temp4", "anonymousState__temp5", "placeholderStyle", "cursorSpacing", "value", "actualMaxlength", "placeholder", "disabled", "autoFocus", "focus", "showConfirmBar", "selectionStart", "selectionEnd", "fixed", "count", "maxlength"], _this.$$refs = [], _temp), _possibleConstructorReturn(_this, _ret);
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = AtTextarea.__proto__ || Object.getPrototypeOf(AtTextarea)).call.apply(_ref, [this].concat(args))), _this), _this.$usedState = ["anonymousState__temp", "anonymousState__temp2", "anonymousState__temp3", "anonymousState__temp4", "anonymousState__temp5", "placeholderStyle", "cursorSpacing", "value", "actualMaxlength", "placeholder", "disabled", "autoFocus", "focus", "showConfirmBar", "selectionStart", "selectionEnd", "fixed", "count", "maxlength", "__fn_onChange", "__fn_onFocus", "__fn_onBlur", "__fn_onConfirm", "__fn_onLinechange", "customStyle", "className", "placeholderClass", "textOverflowForbidden", "height"], _this.$$refs = [], _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(AtTextarea, [{
     key: "_constructor",
-    value: function _constructor(props) {
-      _get(AtTextarea.prototype.__proto__ || Object.getPrototypeOf(AtTextarea.prototype), "_constructor", this).call(this, props);
+    value: function _constructor() {
+      _get(AtTextarea.prototype.__proto__ || Object.getPrototypeOf(AtTextarea.prototype), "_constructor", this).apply(this, arguments);
     }
   }, {
     key: "handleInput",
-    value: function handleInput(e) {
-      this.__triggerPropsFn("onChange", [null].concat([e].concat(Array.prototype.slice.call(arguments))));
+    value: function handleInput() {
+      this.__triggerPropsFn("onChange", [null].concat([].concat(Array.prototype.slice.call(arguments))));
     }
   }, {
     key: "handleFocus",
-    value: function handleFocus(e) {
-      this.__triggerPropsFn("onFocus", [null].concat([e].concat(Array.prototype.slice.call(arguments))));
+    value: function handleFocus() {
+      this.__triggerPropsFn("onFocus", [null].concat([].concat(Array.prototype.slice.call(arguments))));
     }
   }, {
     key: "handleBlur",
-    value: function handleBlur(e) {
-      this.__triggerPropsFn("onBlur", [null].concat([e].concat(Array.prototype.slice.call(arguments))));
+    value: function handleBlur() {
+      this.__triggerPropsFn("onBlur", [null].concat([].concat(Array.prototype.slice.call(arguments))));
     }
   }, {
     key: "handleConfirm",
-    value: function handleConfirm(e) {
-      this.__triggerPropsFn("onConfirm", [null].concat([e].concat(Array.prototype.slice.call(arguments))));
+    value: function handleConfirm() {
+      this.__triggerPropsFn("onConfirm", [null].concat([].concat(Array.prototype.slice.call(arguments))));
     }
   }, {
     key: "handleLinechange",
-    value: function handleLinechange(e) {
-      this.__triggerPropsFn("onLinechange", [null].concat([e].concat(Array.prototype.slice.call(arguments))));
+    value: function handleLinechange() {
+      this.__triggerPropsFn("onLinechange", [null].concat([].concat(Array.prototype.slice.call(arguments))));
     }
   }, {
     key: "_createData",
     value: function _createData() {
       this.__state = arguments[0] || this.state || {};
       this.__props = arguments[1] || this.props || {};
+      ;
 
       var _props = this.__props,
           customStyle = _props.customStyle,
@@ -106,6 +107,7 @@ var AtTextarea = function (_AtComponent) {
           fixed = _props.fixed,
           textOverflowForbidden = _props.textOverflowForbidden,
           height = _props.height;
+
 
       var actualMaxlength = maxlength;
       if (!textOverflowForbidden) {
@@ -150,32 +152,102 @@ var AtTextarea = function (_AtComponent) {
 }(_component2.default);
 
 AtTextarea.properties = {
-  "__fn_onChange": null,
-  "__fn_onFocus": null,
-  "__fn_onBlur": null,
-  "__fn_onConfirm": null,
-  "__fn_onLinechange": null,
-  "customStyle": null,
-  "className": null,
-  "value": null,
-  "cursorSpacing": null,
-  "placeholder": null,
-  "placeholderStyle": null,
-  "placeholderClass": null,
-  "maxlength": null,
-  "count": null,
-  "disabled": null,
-  "autoFocus": null,
-  "focus": null,
-  "showConfirmBar": null,
-  "selectionStart": null,
-  "selectionEnd": null,
-  "fixed": null,
-  "textOverflowForbidden": null,
-  "height": null
+  "__fn_onChange": {
+    "type": null,
+    "value": null
+  },
+  "__fn_onFocus": {
+    "type": null,
+    "value": null
+  },
+  "__fn_onBlur": {
+    "type": null,
+    "value": null
+  },
+  "__fn_onConfirm": {
+    "type": null,
+    "value": null
+  },
+  "__fn_onLinechange": {
+    "type": null,
+    "value": null
+  },
+  "customStyle": {
+    "type": null,
+    "value": null
+  },
+  "className": {
+    "type": null,
+    "value": null
+  },
+  "value": {
+    "type": null,
+    "value": null
+  },
+  "cursorSpacing": {
+    "type": null,
+    "value": null
+  },
+  "placeholder": {
+    "type": null,
+    "value": null
+  },
+  "placeholderStyle": {
+    "type": null,
+    "value": null
+  },
+  "placeholderClass": {
+    "type": null,
+    "value": null
+  },
+  "maxlength": {
+    "type": null,
+    "value": null
+  },
+  "count": {
+    "type": null,
+    "value": null
+  },
+  "disabled": {
+    "type": null,
+    "value": null
+  },
+  "autoFocus": {
+    "type": null,
+    "value": null
+  },
+  "focus": {
+    "type": null,
+    "value": null
+  },
+  "showConfirmBar": {
+    "type": null,
+    "value": null
+  },
+  "selectionStart": {
+    "type": null,
+    "value": null
+  },
+  "selectionEnd": {
+    "type": null,
+    "value": null
+  },
+  "fixed": {
+    "type": null,
+    "value": null
+  },
+  "textOverflowForbidden": {
+    "type": null,
+    "value": null
+  },
+  "height": {
+    "type": null,
+    "value": null
+  }
 };
 AtTextarea.$$events = ["handleInput", "handleFocus", "handleBlur", "handleConfirm", "handleLinechange"];
 AtTextarea.defaultProps = {
+  isTest: false,
   customStyle: '',
   className: '',
   value: '',
@@ -201,7 +273,7 @@ AtTextarea.defaultProps = {
 AtTextarea.propTypes = {
   customStyle: _index4.default.oneOfType([_index4.default.object, _index4.default.string]),
   className: _index4.default.oneOfType([_index4.default.array, _index4.default.string]),
-  value: _index4.default.string,
+  value: _index4.default.string.isRequired,
   cursorSpacing: _index4.default.number,
   maxlength: _index4.default.oneOfType([_index4.default.string, _index4.default.number]),
   placeholderClass: _index4.default.string,
@@ -218,7 +290,7 @@ AtTextarea.propTypes = {
   fixed: _index4.default.bool,
   height: _index4.default.string,
   onLinechange: _index4.default.func,
-  onChange: _index4.default.func,
+  onChange: _index4.default.func.isRequired,
   onFocus: _index4.default.func,
   onBlur: _index4.default.func,
   onConfirm: _index4.default.func

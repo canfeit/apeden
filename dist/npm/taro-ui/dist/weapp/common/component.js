@@ -22,15 +22,17 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var objectToString = function objectToString(style) {
-  if ((typeof style === 'undefined' ? 'undefined' : _typeof(style)) === 'object') {
+  if (style && (typeof style === 'undefined' ? 'undefined' : _typeof(style)) === 'object') {
     var styleStr = '';
     Object.keys(style).forEach(function (key) {
       var lowerCaseKey = key.replace(/([A-Z])/g, '-$1').toLowerCase();
       styleStr += lowerCaseKey + ':' + style[key] + ';';
     });
     return styleStr;
+  } else if (style && typeof style === 'string') {
+    return style;
   }
-  return style;
+  return '';
 };
 
 var AtComponent = function (_Component) {
@@ -46,29 +48,6 @@ var AtComponent = function (_Component) {
     key: 'mergeStyle',
     value: function mergeStyle(style1, style2) {
       return objectToString(style1) + objectToString(style2);
-    }
-  }, {
-    key: 'getClassName',
-    value: function getClassName(arg) {
-      var className = this.props.className;
-
-
-      if (!className) {
-        return arg;
-      }
-
-      var componentClass = arg;
-      var propsClass = className;
-
-      if (!Array.isArray(propsClass)) {
-        propsClass = [propsClass];
-      }
-
-      if (!Array.isArray(componentClass)) {
-        componentClass = [componentClass];
-      }
-
-      return componentClass.concat(propsClass);
     }
   }]);
 

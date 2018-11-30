@@ -1,0 +1,10 @@
+<block>
+    <at-list __triggerObserer="{{ _triggerObserer }}">
+        <block wx:if="{{jokes}}">
+            <view wx:for="{{jokes}}" wx:for-item="joke">
+                <at-list-item title="{{joke.content}}" __triggerObserer="{{ _triggerObserer }}"></at-list-item>
+                <at-icon value="heart-2" __triggerObserer="{{ _triggerObserer }}" bindonclick="onCheer" __fn_onClick="{{true}}" data-e-onCheer-so="this" data-e-onCheer-a-a="{{joke._id}}" data-e-onCheer-a-b="good"></at-icon>{{joke.good}}
+                <at-icon value="heart" __triggerObserer="{{ _triggerObserer }}" bindonclick="onCheer" __fn_onClick="{{true}}" data-e-onCheer-so="this" data-e-onCheer-a-a="{{joke._id}}" data-e-onCheer-a-b="boo"></at-icon>{{joke.boo}}</view>
+        </block>
+    </at-list>
+</block>

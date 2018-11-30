@@ -1,0 +1,6 @@
+<block>
+    <view>
+        <joke-list jokes="{{hotJokes}}" __triggerObserer="{{ _triggerObserer }}"></joke-list>
+        <tab-bar __triggerObserer="{{ _triggerObserer }}"></tab-bar>
+    </view>
+</block>

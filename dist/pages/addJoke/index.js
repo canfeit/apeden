@@ -12,7 +12,7 @@ var _index = require("../../npm/@tarojs/taro-weapp/index.js");
 
 var _index2 = _interopRequireDefault(_index);
 
-var _db = require("../db.js");
+var _service = require("../../service.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -36,7 +36,9 @@ var Index = function (_BaseComponent) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Index.__proto__ || Object.getPrototypeOf(Index)).call.apply(_ref, [this].concat(args))), _this), _this.$usedState = ["content"], _this.$$refs = [], _temp), _possibleConstructorReturn(_this, _ret);
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Index.__proto__ || Object.getPrototypeOf(Index)).call.apply(_ref, [this].concat(args))), _this), _this.$usedState = ["content"], _this.config = {
+      navigationBarTitleText: "写段子"
+    }, _this.$$refs = [], _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(Index, [{
@@ -78,15 +80,14 @@ var Index = function (_BaseComponent) {
     value: function onSubmit(_ref3) {
       var userInfo = _ref3.detail.userInfo;
 
-      _db.jokes.add({
-        data: { content: this.state.content, userName: userInfo && userInfo.nickName }
+      (0, _service.addJoke)({
+        content: this.state.content,
+        userName: userInfo && userInfo.nickName,
+        createAt: new Date().getTime()
       }).then(function () {
-        wx.cloud.callFunction({
-          name: 'upsertUser',
-          data: { data: userInfo }
-        }).then(console.log).catch(console.error);
-        _index2.default.redirectTo({
-          url: '/pages/index/index'
+        (0, _service.upsertUser)(userInfo).catch(console.error);
+        _index2.default.navigateBack({
+          delta: 1
         });
       });
     }
@@ -95,6 +96,7 @@ var Index = function (_BaseComponent) {
     value: function _createData() {
       this.__state = arguments[0] || this.state || {};
       this.__props = arguments[1] || this.props || {};
+      ;
       Object.assign(this.__state, {});
       return this.__state;
     }

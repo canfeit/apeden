@@ -9,8 +9,8 @@
 
 var printWarning = function () {};
 
-if (true) {
-  var ReactPropTypesSecret = require('./lib/ReactPropTypesSecret');
+{
+  var ReactPropTypesSecret = require("./lib/ReactPropTypesSecret.js");
   var loggedTypeFailures = {};
 
   printWarning = function (text) {
@@ -39,7 +39,7 @@ if (true) {
  * @private
  */
 function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
-  if (true) {
+  {
     for (var typeSpecName in typeSpecs) {
       if (typeSpecs.hasOwnProperty(typeSpecName)) {
         var error;

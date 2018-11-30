@@ -273,31 +273,69 @@
  * CSS cubic-bezier timing functions
  * http://bourbon.io/docs/#timing-functions
  */
+/**
+ * Default Theme
+ */
+/**
+ * Mixes a color with white. It's different from lighten()
+ *
+ * @param {color} $color
+ * @param {number (percentage)} $percent [The amout of white to be mixed in]
+ * @return {color}
+ *
+ * @example
+ *   .element {
+ *     background-color: tint(#6ecaa6 , 40%);
+ *   }
+ *
+ *   // CSS Output
+ *   .element {
+ *     background-color: #a8dfc9;
+ *   }
+ */
+/* The Color of O2Team Brand */
+/* Color */
+/* Color Palette */
+/* Text Color */
+/* Link */
+/* 背景色 */
+/* 边框颜色 */
+/* 图标颜色 */
+/* Border Radius */
+/* 透明度 */
+/* Font */
+/* Line Height */
+/* 水平间距 */
+/* 垂直间距 */
+/* 图标尺寸 */
+/* z-index */
+/* timing function */
+/**
+ * CSS cubic-bezier timing functions
+ * http://bourbon.io/docs/#timing-functions
+ */
 .at-list {
-  /* prettier-ignore */
-  border-top: 1PX #e2ecf4 solid;
-  position: relative;
-  background-color: white; }
+  background-color: white;
+  position: relative; }
   .at-list::after {
-    content: " ";
+    content: '';
     position: absolute;
-    width: 100%;
-    bottom: 0;
-    left: 0;
-    background-color: #e2ecf4;
-    /* prettier-ignore */
-    height: 1PX; }
-  .at-list::before {
-    content: " ";
-    left: 0;
-    width: 24rpx;
-    z-index: 100;
-    position: absolute;
-    background-color: transparent;
-    /* prettier-ignore */
-    height: calc(100% - 1PX);
-    top: 0; }
-  .at-list--no-border {
-    border-top: none; }
-    .at-list--no-border::after, .at-list--no-border::before {
-      content: initial; }
+    -webkit-transform-origin: center;
+        -ms-transform-origin: center;
+            transform-origin: center;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    pointer-events: none;
+    top: -50%;
+    left: -50%;
+    right: -50%;
+    bottom: -50%;
+    border: 0 solid #d6e4ef;
+    -webkit-transform: scale(0.5);
+        -ms-transform: scale(0.5);
+            transform: scale(0.5);
+    border-top-width: 1PX;
+    border-bottom-width: 1PX; }
+  .at-list--no-border::after, .at-list--no-border::before {
+    content: initial;
+    border: none; }

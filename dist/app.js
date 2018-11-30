@@ -10,6 +10,16 @@ var _index = require("./npm/@tarojs/taro-weapp/index.js");
 
 var _index2 = _interopRequireDefault(_index);
 
+var _index3 = require("./npm/@tarojs/redux/index.js");
+
+var _dva = require("./dva.js");
+
+var _dva2 = _interopRequireDefault(_dva);
+
+var _index4 = require("./models/index.js");
+
+var _index5 = _interopRequireDefault(_index4);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22,28 +32,56 @@ wx.cloud.init({
   traceUser: true
 });
 
+var app = _dva2.default.createApp({
+  initialState: {},
+  models: _index5.default
+});
+var store = app.getStore();
+
+(0, _index3.setStore)(store);
+
 var _App = function (_BaseComponent) {
   _inherits(_App, _BaseComponent);
 
   function _App() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
     _classCallCheck(this, _App);
 
-    return _possibleConstructorReturn(this, (_App.__proto__ || Object.getPrototypeOf(_App)).apply(this, arguments));
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _App.__proto__ || Object.getPrototypeOf(_App)).call.apply(_ref, [this].concat(args))), _this), _this.config = {
+      pages: ["pages/index/index", "pages/index/hot", "pages/index/User", "pages/addJoke/index"],
+      window: {
+        backgroundTextStyle: "light",
+        navigationBarBackgroundColor: "#fff",
+        navigationBarTitleText: "apeden",
+        navigationBarTextStyle: "black"
+      },
+      tabBar: {
+        list: [{
+          pagePath: "pages/index/index",
+          text: "最新"
+        }, {
+          pagePath: "pages/index/hot",
+          text: "劲爆"
+        }, {
+          pagePath: "pages/index/User",
+          text: "段子手"
+        }],
+        // color: "",
+        // selectedColor: "",
+        // backgroundColor: "#fff",
+        position: "top"
+      }
+    }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(_App, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {}
-  }, {
-    key: "componentDidShow",
-    value: function componentDidShow() {}
-  }, {
-    key: "componentDidHide",
-    value: function componentDidHide() {}
-  }, {
-    key: "componentCatchError",
-    value: function componentCatchError() {}
-  }, {
     key: "_createData",
     value: function _createData() {}
   }]);

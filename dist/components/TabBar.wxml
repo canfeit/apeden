@@ -1,0 +1,3 @@
+<block>
+    <at-tab-bar fixed="{{true}}" __triggerObserer="{{ _triggerObserer }}" tabList="{{anonymousState__temp}}" bindonclick="handleClickTabBar" current="{{currentTabBar}}" __fn_onClick="{{true}}"></at-tab-bar>
+</block>

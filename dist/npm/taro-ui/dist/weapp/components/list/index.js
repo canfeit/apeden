@@ -46,7 +46,7 @@ var AtList = function (_AtComponent) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = AtList.__proto__ || Object.getPrototypeOf(AtList)).call.apply(_ref, [this].concat(args))), _this), _this.$usedState = ["rootClass", "children"], _this.$$refs = [], _temp), _possibleConstructorReturn(_this, _ret);
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = AtList.__proto__ || Object.getPrototypeOf(AtList)).call.apply(_ref, [this].concat(args))), _this), _this.$usedState = ["rootClass", "hasBorder", "className", "children"], _this.$$refs = [], _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(AtList, [{
@@ -59,6 +59,7 @@ var AtList = function (_AtComponent) {
     value: function _createData() {
       this.__state = arguments[0] || this.state || {};
       this.__props = arguments[1] || this.props || {};
+      ;
 
       var rootClass = (0, _index6.default)('at-list', {
         'at-list--no-border': !this.__props.hasBorder
@@ -75,8 +76,14 @@ var AtList = function (_AtComponent) {
 }(_component2.default);
 
 AtList.properties = {
-  "hasBorder": null,
-  "className": null
+  "hasBorder": {
+    "type": null,
+    "value": null
+  },
+  "className": {
+    "type": null,
+    "value": null
+  }
 };
 AtList.$$events = [];
 

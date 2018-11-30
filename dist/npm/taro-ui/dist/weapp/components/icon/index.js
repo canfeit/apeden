@@ -46,7 +46,7 @@ var AtIcon = function (_AtComponent) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = AtIcon.__proto__ || Object.getPrototypeOf(AtIcon)).call.apply(_ref, [this].concat(args))), _this), _this.$usedState = ["anonymousState__temp", "anonymousState__temp2"], _this.$$refs = [], _temp), _possibleConstructorReturn(_this, _ret);
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = AtIcon.__proto__ || Object.getPrototypeOf(AtIcon)).call.apply(_ref, [this].concat(args))), _this), _this.$usedState = ["anonymousState__temp", "anonymousState__temp2", "__fn_onClick", "customStyle", "className", "prefixClass", "value", "size", "color"], _this.$$refs = [], _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(AtIcon, [{
@@ -64,6 +64,7 @@ var AtIcon = function (_AtComponent) {
     value: function _createData() {
       this.__state = arguments[0] || this.state || {};
       this.__props = arguments[1] || this.props || {};
+      ;
 
       var _props = this.__props,
           customStyle = _props.customStyle,
@@ -93,13 +94,34 @@ var AtIcon = function (_AtComponent) {
 }(_component2.default);
 
 AtIcon.properties = {
-  "__fn_onClick": null,
-  "customStyle": null,
-  "className": null,
-  "prefixClass": null,
-  "value": null,
-  "size": null,
-  "color": null
+  "__fn_onClick": {
+    "type": null,
+    "value": null
+  },
+  "customStyle": {
+    "type": null,
+    "value": null
+  },
+  "className": {
+    "type": null,
+    "value": null
+  },
+  "prefixClass": {
+    "type": null,
+    "value": null
+  },
+  "value": {
+    "type": null,
+    "value": null
+  },
+  "size": {
+    "type": null,
+    "value": null
+  },
+  "color": {
+    "type": null,
+    "value": null
+  }
 };
 AtIcon.$$events = ["handleClick"];
 AtIcon.defaultProps = {

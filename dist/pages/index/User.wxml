@@ -1,0 +1,9 @@
+<block>
+    <at-list __triggerObserer="{{ _triggerObserer }}">
+        <block wx:if="{{users}}">
+            <block wx:if="{{user.$original.nickName}}" wx:for="{{loopArray0}}" wx:for-item="user">
+                <at-list-item title="{{user.$original.nickName}}" __triggerObserer="{{ _triggerObserer }}" extraText="{{user.$loopState__temp2}}"></at-list-item>
+            </block>
+        </block>
+    </at-list>
+</block>

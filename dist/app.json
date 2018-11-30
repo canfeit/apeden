@@ -1,12 +1,31 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/index/hot",
+    "pages/index/User",
     "pages/addJoke/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "apeden",
     "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "最新"
+      },
+      {
+        "pagePath": "pages/index/hot",
+        "text": "劲爆"
+      },
+      {
+        "pagePath": "pages/index/User",
+        "text": "段子手"
+      }
+    ],
+    "position": "top"
   }
 }

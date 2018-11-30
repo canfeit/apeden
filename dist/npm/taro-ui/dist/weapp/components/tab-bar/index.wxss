@@ -273,6 +273,47 @@
  * CSS cubic-bezier timing functions
  * http://bourbon.io/docs/#timing-functions
  */
+/**
+ * Default Theme
+ */
+/**
+ * Mixes a color with white. It's different from lighten()
+ *
+ * @param {color} $color
+ * @param {number (percentage)} $percent [The amout of white to be mixed in]
+ * @return {color}
+ *
+ * @example
+ *   .element {
+ *     background-color: tint(#6ecaa6 , 40%);
+ *   }
+ *
+ *   // CSS Output
+ *   .element {
+ *     background-color: #a8dfc9;
+ *   }
+ */
+/* The Color of O2Team Brand */
+/* Color */
+/* Color Palette */
+/* Text Color */
+/* Link */
+/* 背景色 */
+/* 边框颜色 */
+/* 图标颜色 */
+/* Border Radius */
+/* 透明度 */
+/* Font */
+/* Line Height */
+/* 水平间距 */
+/* 垂直间距 */
+/* 图标尺寸 */
+/* z-index */
+/* timing function */
+/**
+ * CSS cubic-bezier timing functions
+ * http://bourbon.io/docs/#timing-functions
+ */
 .at-tab-bar {
   display: -webkit-box;
   display: -webkit-flex;
@@ -293,7 +334,25 @@
       -ms-flex-align: start;
           align-items: start;
   background-color: #FFF;
-  border-top: 1PX #e2ecf4 solid; }
+  position: relative; }
+  .at-tab-bar::after {
+    content: '';
+    position: absolute;
+    -webkit-transform-origin: center;
+        -ms-transform-origin: center;
+            transform-origin: center;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    pointer-events: none;
+    top: -50%;
+    left: -50%;
+    right: -50%;
+    bottom: -50%;
+    border: 0 solid #d6e4ef;
+    -webkit-transform: scale(0.5);
+        -ms-transform: scale(0.5);
+            transform: scale(0.5);
+    border-top-width: 1PX; }
   .at-tab-bar__item {
     -webkit-box-flex: 1;
     -webkit-flex: 1;

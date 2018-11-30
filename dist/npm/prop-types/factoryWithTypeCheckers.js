@@ -9,12 +9,12 @@
 
 var assign = require("../object-assign/index.js");
 
-var ReactPropTypesSecret = require('./lib/ReactPropTypesSecret');
-var checkPropTypes = require('./checkPropTypes');
+var ReactPropTypesSecret = require("./lib/ReactPropTypesSecret.js");
+var checkPropTypes = require("./checkPropTypes.js");
 
 var printWarning = function () {};
 
-if (true) {
+{
   printWarning = function (text) {
     var message = 'Warning: ' + text;
     if (typeof console !== 'undefined') {
@@ -164,7 +164,7 @@ module.exports = function (isValidElement, throwOnDirectAccess) {
   PropTypeError.prototype = Error.prototype;
 
   function createChainableTypeChecker(validate) {
-    if (true) {
+    {
       var manualPropTypeCallCache = {};
       var manualPropTypeWarningCount = 0;
     }
@@ -178,7 +178,7 @@ module.exports = function (isValidElement, throwOnDirectAccess) {
           var err = new Error("Calling PropTypes validators directly is not supported by the `prop-types` package. Use `PropTypes.checkPropTypes()` to call them. Read more at http://fb.me/use-check-prop-types");
           err.name = 'Invariant Violation';
           throw err;
-        } else if (true && typeof console !== 'undefined') {
+        } else if (typeof console !== 'undefined') {
           // Old behavior for people using React.PropTypes
           var cacheKey = componentName + ':' + propName;
           if (!manualPropTypeCallCache[cacheKey] &&
@@ -277,7 +277,7 @@ module.exports = function (isValidElement, throwOnDirectAccess) {
 
   function createEnumTypeChecker(expectedValues) {
     if (!Array.isArray(expectedValues)) {
-      true ? printWarning('Invalid argument supplied to oneOf, expected an instance of array.') : undefined;
+      printWarning('Invalid argument supplied to oneOf, expected an instance of array.');
       return emptyFunctionThatReturnsNull;
     }
 
@@ -320,7 +320,7 @@ module.exports = function (isValidElement, throwOnDirectAccess) {
 
   function createUnionTypeChecker(arrayOfTypeCheckers) {
     if (!Array.isArray(arrayOfTypeCheckers)) {
-      true ? printWarning('Invalid argument supplied to oneOfType, expected an instance of array.') : undefined;
+      printWarning('Invalid argument supplied to oneOfType, expected an instance of array.');
       return emptyFunctionThatReturnsNull;
     }
 

@@ -20,6 +20,10 @@ var _isNaN = require("../../../../../lodash/isNaN.js");
 
 var _isNaN2 = _interopRequireDefault(_isNaN);
 
+var _index5 = require("../../../../../classnames/index.js");
+
+var _index6 = _interopRequireDefault(_index5);
+
 var _component = require("../../common/component.js");
 
 var _component2 = _interopRequireDefault(_component);
@@ -46,7 +50,7 @@ var AtBadge = function (_AtComponent) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = AtBadge.__proto__ || Object.getPrototypeOf(AtBadge)).call.apply(_ref, [this].concat(args))), _this), _this.$usedState = ["anonymousState__temp", "anonymousState__temp2", "dot", "val", "className", "children"], _this.$$refs = [], _temp), _possibleConstructorReturn(_this, _ret);
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = AtBadge.__proto__ || Object.getPrototypeOf(AtBadge)).call.apply(_ref, [this].concat(args))), _this), _this.$usedState = ["anonymousState__temp", "anonymousState__temp2", "dot", "val", "value", "maxValue", "customStyle", "className", "children"], _this.$$refs = [], _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(AtBadge, [{
@@ -71,6 +75,7 @@ var AtBadge = function (_AtComponent) {
     value: function _createData() {
       this.__state = arguments[0] || this.state || {};
       this.__props = arguments[1] || this.props || {};
+      ;
 
       var _props = this.__props,
           dot = _props.dot,
@@ -82,7 +87,7 @@ var AtBadge = function (_AtComponent) {
 
       var val = this.formatValue(value, maxValue);
 
-      var anonymousState__temp = this.getClassName(rootClassName, this.__props.className);
+      var anonymousState__temp = (0, _index6.default)(rootClassName, this.__props.className);
       var anonymousState__temp2 = (0, _index3.internal_inline_style)(customStyle);
       Object.assign(this.__state, {
         anonymousState__temp: anonymousState__temp,
@@ -98,11 +103,26 @@ var AtBadge = function (_AtComponent) {
 }(_component2.default);
 
 AtBadge.properties = {
-  "dot": null,
-  "value": null,
-  "maxValue": null,
-  "customStyle": null,
-  "className": null
+  "dot": {
+    "type": null,
+    "value": null
+  },
+  "value": {
+    "type": null,
+    "value": null
+  },
+  "maxValue": {
+    "type": null,
+    "value": null
+  },
+  "customStyle": {
+    "type": null,
+    "value": null
+  },
+  "className": {
+    "type": null,
+    "value": null
+  }
 };
 AtBadge.$$events = [];
 

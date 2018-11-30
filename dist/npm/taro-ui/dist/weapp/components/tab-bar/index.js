@@ -46,7 +46,7 @@ var AtTabBar = function (_AtComponent) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = AtTabBar.__proto__ || Object.getPrototypeOf(AtTabBar)).call.apply(_ref, [this].concat(args))), _this), _this.$usedState = ["anonymousState__temp", "anonymousState__temp2", "loopArray0", "tabList", "current", "iconSize", "selectedColor", "color", "isIPhoneX"], _this.$$refs = [], _temp), _possibleConstructorReturn(_this, _ret);
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = AtTabBar.__proto__ || Object.getPrototypeOf(AtTabBar)).call.apply(_ref, [this].concat(args))), _this), _this.$usedState = ["anonymousState__temp", "anonymousState__temp2", "loopArray0", "tabList", "current", "iconSize", "selectedColor", "color", "isIPhoneX", "__fn_onClick", "customStyle", "className", "fixed", "backgroundColor", "fontSize"], _this.$$refs = [], _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(AtTabBar, [{
@@ -68,14 +68,15 @@ var AtTabBar = function (_AtComponent) {
     }
   }, {
     key: "handleClick",
-    value: function handleClick(i) {
-      this.__triggerPropsFn("onClick", [null].concat([i].concat(Array.prototype.slice.call(arguments))));
+    value: function handleClick() {
+      this.__triggerPropsFn("onClick", [null].concat([].concat(Array.prototype.slice.call(arguments))));
     }
   }, {
     key: "_createData",
     value: function _createData() {
       this.__state = arguments[0] || this.state || {};
       this.__props = arguments[1] || this.props || {};
+      ;
 
       var _props = this.__props,
           customStyle = _props.customStyle,
@@ -103,14 +104,16 @@ var AtTabBar = function (_AtComponent) {
       var anonymousState__temp2 = (0, _index.internal_inline_style)(this.mergeStyle(rootStyle, customStyle));
       var loopArray0 = tabList.map(function (item, i) {
         item = {
-          $$original: (0, _index.internal_get_original)(item)
+          $original: (0, _index.internal_get_original)(item)
         };
         var $loopState__temp4 = (0, _index.internal_inline_style)(current === i ? selectedStyle : defaultStyle);
-        var $loopState__temp6 = (0, _index.internal_inline_style)(titleStyle);
+        var $loopState__temp6 = item.$original.iconType ? !!item.$original.dot : null;
+        var $loopState__temp8 = (0, _index.internal_inline_style)(titleStyle);
         return {
           $loopState__temp4: $loopState__temp4,
           $loopState__temp6: $loopState__temp6,
-          $$original: item.$$original
+          $loopState__temp8: $loopState__temp8,
+          $original: item.$original
         };
       });
       Object.assign(this.__state, {
@@ -131,17 +134,50 @@ var AtTabBar = function (_AtComponent) {
 }(_component2.default);
 
 AtTabBar.properties = {
-  "__fn_onClick": null,
-  "customStyle": null,
-  "className": null,
-  "fixed": null,
-  "backgroundColor": null,
-  "tabList": null,
-  "current": null,
-  "color": null,
-  "iconSize": null,
-  "fontSize": null,
-  "selectedColor": null
+  "__fn_onClick": {
+    "type": null,
+    "value": null
+  },
+  "customStyle": {
+    "type": null,
+    "value": null
+  },
+  "className": {
+    "type": null,
+    "value": null
+  },
+  "fixed": {
+    "type": null,
+    "value": null
+  },
+  "backgroundColor": {
+    "type": null,
+    "value": null
+  },
+  "tabList": {
+    "type": null,
+    "value": null
+  },
+  "current": {
+    "type": null,
+    "value": null
+  },
+  "color": {
+    "type": null,
+    "value": null
+  },
+  "iconSize": {
+    "type": null,
+    "value": null
+  },
+  "fontSize": {
+    "type": null,
+    "value": null
+  },
+  "selectedColor": {
+    "type": null,
+    "value": null
+  }
 };
 AtTabBar.$$events = ["handleClick"];
 AtTabBar.defaultProps = {

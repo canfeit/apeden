@@ -1,8 +1,6 @@
 <block>
     <view>
-        <at-textarea value="{{content}}" __triggerObserer="{{ _triggerObserer }}"
-        maxlength="200" placeholder="段子内容..." bindonchange="onContent" __fn_onChange="{{true}}"
-        data-e-onContent-so="this"></at-textarea>
+        <at-textarea value="{{content}}" __triggerObserer="{{ _triggerObserer }}" maxlength="200" placeholder="段子内容..." bindonchange="onContent" __fn_onChange="{{true}}" data-e-onContent-so="this"></at-textarea>
         <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onSubmit">提交</button>
     </view>
 </block>

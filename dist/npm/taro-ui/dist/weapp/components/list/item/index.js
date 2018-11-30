@@ -68,12 +68,15 @@ var AtListItem = function (_AtComponent) {
     value: function _createData() {
       this.__state = arguments[0] || this.state || {};
       this.__props = arguments[1] || this.props || {};
+      ;
 
       var _props = this.__props,
           note = _props.note,
           arrow = _props.arrow,
           title = _props.title,
           thumb = _props.thumb,
+          iconInfo = _props.iconInfo,
+          disabled = _props.disabled,
           isSwitch = _props.isSwitch,
           extraText = _props.extraText,
           hasBorder = _props.hasBorder,
@@ -84,6 +87,7 @@ var AtListItem = function (_AtComponent) {
       var rootClass = (0, _index6.default)('at-list__item', {
         'at-list__item--thumb': thumb,
         'at-list__item--multiple': note,
+        'at-list__item--disabled': disabled,
         'at-list__item--no-border': !hasBorder
       }, this.__props.className);
 
@@ -91,11 +95,13 @@ var AtListItem = function (_AtComponent) {
       Object.assign(this.__state, {
         anonymousState__temp: anonymousState__temp,
         rootClass: rootClass,
+        iconInfo: iconInfo,
         thumb: thumb,
         note: note,
         extraText: extraText,
         extraThumb: extraThumb,
         isSwitch: isSwitch,
+        disabled: disabled,
         switchIsCheck: switchIsCheck,
         arrow: arrow,
         title: title
@@ -108,34 +114,84 @@ var AtListItem = function (_AtComponent) {
 }(_component2.default);
 
 AtListItem.properties = {
-  "onClick": null,
-  "__fn_onClick": null,
-  "onSwitchChange": null,
-  "__fn_onSwitchChange": null,
-  "note": null,
-  "arrow": null,
-  "title": null,
-  "thumb": null,
-  "isSwitch": null,
-  "extraText": null,
-  "hasBorder": null,
-  "extraThumb": null,
-  "switchIsCheck": null,
-  "className": null
+  "onClick": {
+    "type": null,
+    "value": null
+  },
+  "disabled": {
+    "type": null,
+    "value": null
+  },
+  "__fn_onClick": {
+    "type": null,
+    "value": null
+  },
+  "onSwitchChange": {
+    "type": null,
+    "value": null
+  },
+  "__fn_onSwitchChange": {
+    "type": null,
+    "value": null
+  },
+  "note": {
+    "type": null,
+    "value": null
+  },
+  "arrow": {
+    "type": null,
+    "value": null
+  },
+  "title": {
+    "type": null,
+    "value": null
+  },
+  "thumb": {
+    "type": null,
+    "value": null
+  },
+  "iconInfo": {
+    "type": null,
+    "value": null
+  },
+  "isSwitch": {
+    "type": null,
+    "value": null
+  },
+  "extraText": {
+    "type": null,
+    "value": null
+  },
+  "hasBorder": {
+    "type": null,
+    "value": null
+  },
+  "extraThumb": {
+    "type": null,
+    "value": null
+  },
+  "switchIsCheck": {
+    "type": null,
+    "value": null
+  },
+  "className": {
+    "type": null,
+    "value": null
+  }
 };
 AtListItem.$$events = ["handleClick", "handleSwitchClick", "handleSwitchChange"];
 
 var _initialiseProps = function _initialiseProps() {
   var _this2 = this;
 
-  this.$usedState = ["anonymousState__temp", "rootClass", "thumb", "note", "extraText", "extraThumb", "isSwitch", "switchIsCheck", "arrow", "title"];
+  this.$usedState = ["anonymousState__temp", "rootClass", "iconInfo", "thumb", "note", "extraText", "extraThumb", "isSwitch", "disabled", "switchIsCheck", "arrow", "title", "onClick", "__fn_onClick", "onSwitchChange", "__fn_onSwitchChange", "hasBorder", "className"];
 
   this.handleClick = function () {
     for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
       args[_key2] = arguments[_key2];
     }
 
-    if ((0, _isFunction3.default)(_this2.props.onClick)) {
+    if ((0, _isFunction3.default)(_this2.props.onClick) && !_this2.props.disabled) {
       _this2.__triggerPropsFn("onClick", [null].concat([].concat(args)));
     }
   };
@@ -145,7 +201,7 @@ var _initialiseProps = function _initialiseProps() {
       args[_key3] = arguments[_key3];
     }
 
-    if ((0, _isFunction3.default)(_this2.props.onSwitchChange)) {
+    if ((0, _isFunction3.default)(_this2.props.onSwitchChange) && !_this2.props.disabled) {
       _this2.__triggerPropsFn("onSwitchChange", [null].concat([].concat(args)));
     }
   };
@@ -155,11 +211,14 @@ var _initialiseProps = function _initialiseProps() {
 
 AtListItem.defaultProps = {
   hasBorder: true,
-  isSwitch: false
+  isSwitch: false,
+  disabled: false,
+  iconInfo: {}
 };
 
 AtListItem.propTypes = {
   note: _index4.default.string,
+  disabled: _index4.default.bool,
   title: _index4.default.string,
   thumb: _index4.default.string,
   onClick: _index4.default.func,
@@ -169,7 +228,15 @@ AtListItem.propTypes = {
   extraText: _index4.default.string,
   extraThumb: _index4.default.string,
   onSwitchChange: _index4.default.func,
-  arrow: _index4.default.oneOf(['up', 'down', 'right'])
+  arrow: _index4.default.oneOf(['up', 'down', 'right']),
+  iconInfo: _index4.default.shape({
+    size: _index4.default.number,
+    value: _index4.default.string,
+    color: _index4.default.string,
+    prefixClass: _index4.default.string,
+    customStyle: _index4.default.oneOfType([_index4.default.object, _index4.default.string]),
+    className: _index4.default.oneOfType([_index4.default.array, _index4.default.string])
+  })
 };
 exports.default = AtListItem;
 
