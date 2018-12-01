@@ -7,7 +7,7 @@
 
 'use strict';
 
-var assign = require("../object-assign/index.js");
+var assign = require("./npm/object-assign/index.js");
 
 var ReactPropTypesSecret = require("./lib/ReactPropTypesSecret.js");
 var checkPropTypes = require("./checkPropTypes.js");

@@ -343,6 +343,8 @@
       color: #CCC; }
     .at-textarea__textarea::-webkit-input-placeholder {
       color: #CCC; }
+    .at-textarea__textarea:-ms-input-placeholder {
+      color: #CCC; }
     .at-textarea__textarea::-ms-input-placeholder {
       color: #CCC; }
     .at-textarea__textarea::placeholder {

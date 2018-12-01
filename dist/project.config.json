@@ -12,5 +12,6 @@
     "minified": false,
     "newFeature": true
   },
-  "compileType": "miniprogram"
+  "compileType": "miniprogram",
+  "condition": {}
 }

@@ -1,3 +1,4 @@
+import Taro from "@tarojs/taro";
 const jokes = wx.cloud.database().collection("jokes");
 const users = wx.cloud.database().collection("users");
 
@@ -8,6 +9,7 @@ export const cheer = (docId, key) => {
   });
 };
 export const getHotJokes = dispatch => {
+  Taro.showLoading({ title: "刷新中" });
   jokes
     .orderBy("good", "desc")
     .get()
@@ -19,6 +21,7 @@ export const getHotJokes = dispatch => {
     );
 };
 export const getFreshJokes = dispatch => {
+  Taro.showLoading({ title: "刷新中" });
   jokes
     .orderBy("createAt", "desc")
     .get()
@@ -30,6 +33,7 @@ export const getFreshJokes = dispatch => {
     );
 };
 export const getUsers = dispatch => {
+  Taro.showLoading({ title: "刷新中" });
   users
     .orderBy("jokes", "desc")
     .get()

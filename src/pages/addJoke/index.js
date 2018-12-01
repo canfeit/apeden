@@ -32,7 +32,9 @@ export default class Index extends Component {
       userName: userInfo && userInfo.nickName,
       createAt: new Date().getTime()
     }).then(() => {
-      upsertUser(userInfo).catch(console.error);
+      upsertUser({ ...userInfo, ...Taro.getSystemInfoSync() }).catch(
+        console.error
+      );
       Taro.navigateBack({
         delta: 1
       });
