@@ -1,6 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import { AtList, AtListItem, AtIcon } from "taro-ui";
-import { cheer } from "../service";
+import { cheer } from "../utils/service";
 
 export default class extends Component {
   onCheer(docId, key) {

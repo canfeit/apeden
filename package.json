@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "description": "猿野",
-  "main": "index.js",
   "scripts": {
     "build:weapp": "taro build --type weapp",
     "build:alipay": "taro build --type alipay",
@@ -13,7 +12,7 @@
     "dev:alipay": "npm run build:alipay -- --watch",
     "dev:h5": "npm run build:h5 -- --watch",
     "dev:rn": "npm run build:rn -- --watch",
-    "update": "taro update self&&taro update project",
+    "update": "n latest&&taro update self&&taro update project",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

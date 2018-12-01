@@ -1,6 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import { connect } from "@tarojs/redux";
-import { getFreshJokes } from "../../service";
+import { getFreshJokes } from "../../utils/service";
 import TabBar from "../../components/TabBar";
 import JokeList from "../../components/JokeList";
 import "./index.css";

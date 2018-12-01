@@ -18,7 +18,7 @@ var _index2 = _interopRequireDefault(_index);
 
 var _index3 = require("../../npm/@tarojs/redux/index.js");
 
-var _service = require("../../service.js");
+var _service = require("../../utils/service.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

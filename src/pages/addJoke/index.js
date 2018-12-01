@@ -1,6 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import { AtTextarea } from "taro-ui";
-import { addJoke, upsertUser } from "../../service";
+import { addJoke, upsertUser } from "../../utils/service";
 import "./index.css";
 export default class Index extends Component {
   config = {

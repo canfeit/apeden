@@ -1,7 +1,7 @@
 import Taro, { Component } from "@tarojs/taro";
 import { connect } from "@tarojs/redux";
 import { AtList, AtListItem } from "taro-ui";
-import { getUsers } from "../../service";
+import { getUsers } from "../../utils/service";
 
 @connect(({ common }) => ({ ...common }))
 export default class extends Component {
