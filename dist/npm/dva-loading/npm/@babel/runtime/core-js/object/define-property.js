@@ -1,1 +1,0 @@
-module.exports = require("../../../../../../dva-core/npm/@babel/runtime/npm/core-js/library/fn/object/define-property.js");

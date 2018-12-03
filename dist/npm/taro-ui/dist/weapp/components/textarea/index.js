@@ -8,6 +8,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
+var _class, _temp2;
+
 var _index = require("../../../../../@tarojs/taro-weapp/index.js");
 
 var _index2 = _interopRequireDefault(_index);
@@ -34,7 +36,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var defaultFunc = function defaultFunc() {};
 
-var AtTextarea = function (_AtComponent) {
+var AtTextarea = (_temp2 = _class = function (_AtComponent) {
   _inherits(AtTextarea, _AtComponent);
 
   function AtTextarea() {
@@ -149,9 +151,7 @@ var AtTextarea = function (_AtComponent) {
   }]);
 
   return AtTextarea;
-}(_component2.default);
-
-AtTextarea.properties = {
+}(_component2.default), _class.properties = {
   "__fn_onChange": {
     "type": null,
     "value": null
@@ -244,9 +244,7 @@ AtTextarea.properties = {
     "type": null,
     "value": null
   }
-};
-AtTextarea.$$events = ["handleInput", "handleFocus", "handleBlur", "handleConfirm", "handleLinechange"];
-AtTextarea.defaultProps = {
+}, _class.$$events = ["handleInput", "handleFocus", "handleBlur", "handleConfirm", "handleLinechange"], _class.defaultProps = {
   isTest: false,
   customStyle: '',
   className: '',
@@ -269,8 +267,7 @@ AtTextarea.defaultProps = {
   onFocus: defaultFunc,
   onBlur: defaultFunc,
   onConfirm: defaultFunc
-};
-AtTextarea.propTypes = {
+}, _class.propTypes = {
   customStyle: _index4.default.oneOfType([_index4.default.object, _index4.default.string]),
   className: _index4.default.oneOfType([_index4.default.array, _index4.default.string]),
   value: _index4.default.string.isRequired,
@@ -294,7 +291,7 @@ AtTextarea.propTypes = {
   onFocus: _index4.default.func,
   onBlur: _index4.default.func,
   onConfirm: _index4.default.func
-};
+}, _temp2);
 exports.default = AtTextarea;
 
 Component(require('../../../../../@tarojs/taro-weapp/index.js').default.createComponent(AtTextarea));

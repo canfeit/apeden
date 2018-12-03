@@ -10,7 +10,7 @@ var _get = function get(object, property, receiver) { if (object === null) objec
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _dec, _class;
+var _dec, _class, _class2, _temp2;
 
 var _index = require("../../npm/@tarojs/taro-weapp/index.js");
 
@@ -31,7 +31,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var _TaroComponentClass = (_dec = (0, _index3.connect)(function (_ref) {
   var common = _ref.common;
   return _extends({}, common);
-}), _dec(_class = function (_BaseComponent) {
+}), _dec(_class = (_temp2 = _class2 = function (_BaseComponent) {
   _inherits(_TaroComponentClass, _BaseComponent);
 
   function _TaroComponentClass() {
@@ -87,9 +87,7 @@ var _TaroComponentClass = (_dec = (0, _index3.connect)(function (_ref) {
   }]);
 
   return _TaroComponentClass;
-}(_index.Component)) || _class);
-
-_TaroComponentClass.properties = {
+}(_index.Component), _class2.properties = {
   "dispatch": {
     "type": null,
     "value": null
@@ -98,8 +96,8 @@ _TaroComponentClass.properties = {
     "type": null,
     "value": null
   }
-};
-_TaroComponentClass.$$events = [];
+}, _class2.$$events = [], _temp2)) || _class);
+
 exports.default = _TaroComponentClass;
 
 Component(require('../../npm/@tarojs/taro-weapp/index.js').default.createComponent(_TaroComponentClass, true));
